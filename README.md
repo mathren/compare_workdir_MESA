@@ -1,5 +1,5 @@
 
-While experimenting with MESA and developing setups, I find myself
+While experimenting with [MESA](http://mesa.sourceforge.net/) and developing setups, I find myself
 rather often comparing inlists (for single and/or binary stars) with
 each other. A simple diff is often not particularly informative
 because of the comments, non-matching order of the entries, or missing
