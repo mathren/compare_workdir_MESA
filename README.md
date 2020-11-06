@@ -18,8 +18,6 @@ This can be used inside of scripts or notebooks, or from command line, thanks to
 
 ```
 python compare_inlists.py --help
-
-
 Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 
 Options:
