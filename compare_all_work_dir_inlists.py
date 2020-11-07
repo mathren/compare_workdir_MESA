@@ -32,14 +32,14 @@ import click
 
 # sys.path.append('path/to/folder/plotFunc/')
 from compare_inlists import (
-    getJobNamelist,
-    getControlsNamelist,
-    getDefaults,
-    diffBinaryControls,
-    diffBinaryJob,
-    diffControls,
-    diffPgstar,
-    diffStarJob,
+    get_job_namelist,
+    get_controls_namelist,
+    get_defaults,
+    diff_binary_controls,
+    diff_binary_job,
+    diff_controls,
+    diff_pgstar,
+    diff_starjob,
 )
 
 # ------------------------- some auxiliary functions ----------------------------------
@@ -72,20 +72,20 @@ def isFolderBinary(workDir: str):
     (returns True) or single star (returns False)
     """
     inlist = getFirstInlist(workDir)
-    isBinary = getJobNamelist(inlist)[1]
+    isBinary = get_job_namelist(inlist)[1]
     return isBinary
 
 
 def getMasterInlistStarsInBinaries(job1: dict, job2: dict, MESA_DIR=""):
     """
-    reads the inlist for each individual star in a binary 
+    reads the inlist for each individual star in a binary
     for both folders we are comparing. If not present, use the default
     """
     # primary first binary
     try:
         master_inlist_star1_b1 = job1["inlist_names(1)"]
     except KeyError:
-        job_defaults = getDefaults("binary_job", MESA_DIR=MESA_DIR)
+        job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
         master_inlist_star1_b1 = job_defaults["inlist_names(1)"]
     # either way you got it, clean it
     master_inlist_star1_b1 = master_inlist_star1_b1.strip("'").strip('"')
@@ -93,21 +93,21 @@ def getMasterInlistStarsInBinaries(job1: dict, job2: dict, MESA_DIR=""):
     try:
         master_inlist_star2_b1 = job1["inlist_names(2)"]
     except KeyError:
-        job_defaults = getDefaults("binary_job", MESA_DIR=MESA_DIR)
+        job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
         master_inlist_star2_b1 = job_defaults["inlist_names(2)"]
     master_inlist_star2_b1 = master_inlist_star2_b1.strip("'").strip('"')
     # primary second binary
     try:
         master_inlist_star1_b2 = job2["inlist_names(1)"]
     except KeyError:
-        job_defaults = getDefaults("binary_job", MESA_DIR=MESA_DIR)
+        job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
         master_inlist_star1_b2 = job_defaults["inlist_names(1)"]
     master_inlist_star1_b2 = master_inlist_star1_b2.strip("'").strip('"')
     # secondary first binary
     try:
         master_inlist_star2_b2 = job2["inlist_names(2)"]
     except KeyError:
-        job_defaults = getDefaults("binary_job", MESA_DIR=MESA_DIR)
+        job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
         master_inlist_star2_b2 = job_defaults["inlist_names(2)"]
     master_inlist_star2_b2 = master_inlist_star2_b2.strip("'").strip('"')
     return (
@@ -123,7 +123,7 @@ def getMasterInlistStarsInBinaries(job1: dict, job2: dict, MESA_DIR=""):
 
 def checkIfMoreStarJob(job: dict, workDir="./"):
     """
-    Check if there are more star_job namelists to be read and returns a 
+    Check if there are more star_job namelists to be read and returns a
     list of the paths to their inlists
     """
     inlists_to_be_read = []
@@ -171,7 +171,7 @@ def checkIfMoreBinaryJob(job: dict, workDir="./"):
 
 def checkIfMoreControls(controls: dict, workDir="./"):
     """
-    Check if there are more controls namelists to be read and returns a 
+    Check if there are more controls namelists to be read and returns a
     list of the paths to their inlists
     """
     inlists_to_be_read = []
@@ -195,7 +195,7 @@ def checkIfMoreControls(controls: dict, workDir="./"):
 
 def checkIfMoreBinaryControls(binary_controls: dict, workDir="./"):
     """
-    Check if there are more binary_controls namelists to be read and returns a 
+    Check if there are more binary_controls namelists to be read and returns a
     list of the paths to their inlists
     """
     inlists_to_be_read = []
@@ -219,7 +219,7 @@ def checkIfMoreBinaryControls(binary_controls: dict, workDir="./"):
 
 def checkIfMorePgstar(pgstar: dict, workDir="./"):
     """
-    Check if there are more pgstar namelists to be read and returns a 
+    Check if there are more pgstar namelists to be read and returns a
     list of the paths to their inlists
     """
     inlists_to_be_read = []
@@ -243,7 +243,7 @@ def checkIfMorePgstar(pgstar: dict, workDir="./"):
 
 def checkIfMoreBinaryPgstar(binary_pgstar: dict, workDir="./"):
     """
-    Check if there are more binary_pgstar namelists to be read and returns a 
+    Check if there are more binary_pgstar namelists to be read and returns a
     list of the paths to their inlists
     """
     inlists_to_be_read = []
@@ -271,17 +271,17 @@ def checkIfMoreBinaryPgstar(binary_pgstar: dict, workDir="./"):
 def buildMasterStarJob(workDir: str, first_inlist=""):
     """
     Builds the star_job namelist by reading the inlists starting from inlist, unless an
-    optional different starting inlist is passed. 
+    optional different starting inlist is passed.
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    job = getJobNamelist(first_inlist)[0]
+    job = get_job_namelist(first_inlist)[0]
     inlists_to_be_read = checkIfMoreStarJob(job, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " star_job namelist")
-        job_to_add = getJobNamelist(current_inlist)[0]
+        job_to_add = get_job_namelist(current_inlist)[0]
         inlists_to_add = checkIfMoreStarJob(job_to_add, workDir=workDir)
         # merge dictionaries with over-write
         job = {**job, **job_to_add}
@@ -309,13 +309,13 @@ def buildMasterBinaryJob(workDir: str, first_inlist=""):
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    job = getJobNamelist(first_inlist)[0]
+    job = get_job_namelist(first_inlist)[0]
     inlists_to_be_read = checkIfMoreBinaryJob(job, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " binary_job namelist")
-        job_to_add = getJobNamelist(current_inlist)[0]
+        job_to_add = get_job_namelist(current_inlist)[0]
         inlists_to_add = checkIfMoreBinaryJob(job_to_add, workDir=workDir)
         job = {**job, **job_to_add}
         ## note: if the same read_extra_binary_job is used in multiple
@@ -342,13 +342,13 @@ def buildMasterControls(workDir: str, first_inlist=""):
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    controls = getControlsNamelist(first_inlist)[0]
+    controls = get_controls_namelist(first_inlist)[0]
     inlists_to_be_read = checkIfMoreControls(controls, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " controls namelist")
-        controls_to_add = getControlsNamelist(current_inlist)[0]
+        controls_to_add = get_controls_namelist(current_inlist)[0]
         inlists_to_add = checkIfMoreControls(controls_to_add, workDir=workDir)
         controls = {**controls, **controls_to_add}
         ## note: if the same read_extra_star_controls is used in multiple
@@ -374,13 +374,13 @@ def buildMasterBinaryControls(workDir: str, first_inlist=""):
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    binary_controls = getControlsNamelist(first_inlist)[0]
+    binary_controls = get_controls_namelist(first_inlist)[0]
     inlists_to_be_read = checkIfMoreBinaryControls(binary_controls, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " binary_controls namelist")
-        binary_controls_to_add = getControlsNamelist(current_inlist)[0]
+        binary_controls_to_add = get_controls_namelist(current_inlist)[0]
         inlists_to_add = checkIfMoreBinaryControls(binary_controls_to_add, workDir=workDir)
         binary_controls = {**binary_controls, **binary_controls_to_add}
         ## note: if the same read_extra_star_binary_controls is used in multiple
@@ -406,13 +406,13 @@ def buildMasterPgstar(workDir: str, first_inlist=""):
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    pgstar = getPgstarNamelist(first_inlist)
+    pgstar = get_pgstar_namelist(first_inlist)
     inlists_to_be_read = checkIfMorePgstar(pgstar, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " pgstar namelist")
-        pgstar_to_add = getPgstarNamelist(current_inlist)
+        pgstar_to_add = get_pgstar_namelist(current_inlist)
         inlists_to_add = checkIfMorePgstar(pgstar_to_add, workDir=workDir)
         pgstar = {**pgstar, **pgstar_to_add}
         ## note: if the same read_extra_star_pgstar is used in multiple
@@ -438,13 +438,13 @@ def buildMasterBinaryPgstar(workDir: str, first_inlist=""):
     """
     if first_inlist == "":
         first_inlist = getFirstInlist(workDir)
-    binary_pgstar = getPgstarNamelist(first_inlist)
+    binary_pgstar = get_pgstar_namelist(first_inlist)
     inlists_to_be_read = checkIfMoreBinaryPgstar(binary_pgstar, workDir=workDir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " binary_pgstar namelist")
-        binary_pgstar_to_add = getPgstarNamelist(current_inlist)
+        binary_pgstar_to_add = get_pgstar_namelist(current_inlist)
         inlists_to_add = checkIfMoreBinaryPgstar(binary_pgstar_to_add, workDir=workDir)
         binary_pgstar = {**binary_pgstar, **binary_pgstar_to_add}
         ## note: if the same read_extra_star_binary_pgstar is used in multiple
@@ -485,7 +485,7 @@ def compareSingleWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&star_job")
     print("")
-    diffStarJob(job1, job2, name1, name2, MESA_DIR, vb)
+    diff_starjob(job1, job2, name1, name2, MESA_DIR, vb)
     print("/ !end star_job namelist")
     print("")
     # controls
@@ -494,7 +494,7 @@ def compareSingleWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&controls")
     print("")
-    diffControls(controls1, controls2, name1, name2, MESA_DIR, vb)
+    diff_controls(controls1, controls2, name1, name2, MESA_DIR, vb)
     print("")
     print("/ !end controls namelist")
     print("")
@@ -504,7 +504,7 @@ def compareSingleWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
         print("")
         print("&pgstar")
         print("")
-        diffPgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
+        diff_pgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
         print("")
         print("/ !end pgstar")
 
@@ -530,7 +530,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&binary_job")
     print("")
-    diffBinaryJob(job1, job2, name1, name2, MESA_DIR, vb)
+    diff_binary_job(job1, job2, name1, name2, MESA_DIR, vb)
     print("/ !end binary_job namelist")
     print("")
     # binary_controls
@@ -539,7 +539,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&binary_controls")
     print("")
-    diffBinaryControls(binary_controls1, binary_controls2, name1, name2, MESA_DIR, vb)
+    diff_binary_controls(binary_controls1, binary_controls2, name1, name2, MESA_DIR, vb)
     print("")
     print("/ !end binary_controls namelist")
     print("")
@@ -549,7 +549,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
         print("")
         print("&binary_pgstar")
         print("")
-        diffPgstar(binary_pgstar1, binary_pgstar2, name1, name2, MESA_DIR, vb)
+        diff_pgstar(binary_pgstar1, binary_pgstar2, name1, name2, MESA_DIR, vb)
         print("")
         print("/ !end binary_pgstar")
     print("")
@@ -565,7 +565,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&star_job")
     print("")
-    diffStarJob(star_job1, star_job2, name1, name2, MESA_DIR, vb)
+    diff_starjob(star_job1, star_job2, name1, name2, MESA_DIR, vb)
     print("/ !end star_job namelist")
     print("")
     # controls
@@ -574,7 +574,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&controls")
     print("")
-    diffControls(controls1, controls2, name1, name2, MESA_DIR, vb)
+    diff_controls(controls1, controls2, name1, name2, MESA_DIR, vb)
     print("")
     print("/ !end controls namelist")
     print("")
@@ -584,7 +584,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
         print("")
         print("&pgstar")
         print("")
-        diffPgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
+        diff_pgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
         print("")
         print("/ !end pgstar")
         print("")
@@ -598,7 +598,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&star_job")
     print("")
-    diffStarJob(star_job1, star_job2, name1, name2, MESA_DIR, vb)
+    diff_starjob(star_job1, star_job2, name1, name2, MESA_DIR, vb)
     print("/ !end star_job namelist")
     print("")
     # controls
@@ -607,7 +607,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
     print("")
     print("&controls")
     print("")
-    diffControls(controls1, controls2, name1, name2, MESA_DIR, vb)
+    diff_controls(controls1, controls2, name1, name2, MESA_DIR, vb)
     print("")
     print("/ !end controls namelist")
     print("")
@@ -617,7 +617,7 @@ def compareBinaryWorkDirs(work1: str, work2: str, doPgstar=False, MESA_DIR="", v
         print("")
         print("&pgstar")
         print("")
-        diffPgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
+        diff_pgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
         print("")
         print("/ !end pgstar")
         print("")

@@ -77,7 +77,7 @@ def cleanVal(val):
 
 def getMESA_DIR() -> str:
     """
-    Read the MESA_DIR in the environment variables if not provided, 
+    Read the MESA_DIR in the environment variables if not provided,
     and returns it as a string.
     """
     try:
@@ -97,7 +97,7 @@ def getDefaults(namelist: str, MESA_DIR=""):
     read the namelists from the MESA_DIR folder.
     MESA_DIR will be read from the environment variables if it is an empty string
 
-    namelist can be either star_job, binary_job, controls, binary_controls, or pgstar
+    namelist can be either star_job, binary_job, controls, binary_controls, eos, kap, or pgstar
     returns a dictionary with MESA options as keys and the values set in the default files
     """
     defaults = {}
@@ -111,6 +111,10 @@ def getDefaults(namelist: str, MESA_DIR=""):
         defaultFname = Path(MESA_DIR + "/star/defaults/controls.defaults")
     elif namelist.lower() == "binary_controls":
         defaultFname = Path(MESA_DIR + "/binary/defaults/binary_controls.defaults")
+    elif namelist.lower() == "eos":
+        defaultFname = Path(MESA_DIR + "/eos/defaults/eos.defaults")
+    elif namelist.lower() == "kap":
+        defaultFname = Path(MESA_DIR + "/kap/defaults/kap.defaults")
     elif namelist.lower() == "pgstar":
         defaultFname = Path(MESA_DIR + "/star/defaults/pgstar.defaults")
     else:
@@ -139,7 +143,7 @@ def getDefaults(namelist: str, MESA_DIR=""):
 
 def getJobNamelist(inlist: str):
     """
-    returns a dictionary of the star_job or binary_job namelist entries 
+    returns a dictionary of the star_job or binary_job namelist entries
     inside inlist, and values and a flag for binaries
     """
     job = {}
@@ -174,7 +178,7 @@ def getJobNamelist(inlist: str):
 
 def getControlsNamelist(inlist: str):
     """
-    returns a dictionary of the controls or binary_controls namelist entries and values 
+    returns a dictionary of the controls or binary_controls namelist entries and values
     and a flag for binaries
     """
     controls = {}
@@ -208,8 +212,8 @@ def getControlsNamelist(inlist: str):
 
 
 def getPgstarNamelist(inlist: str):
-    """ 
-    returns a dictionary of the pgstar namelist entries and values 
+    """
+    returns a dictionary of the pgstar namelist entries and values
     """
     pgstar = {}
     with open(inlist, "r") as i1:
