@@ -553,19 +553,20 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
     """
     Run all possible pairs of inlists from the test_suite as a test
     """
+    import time
     failed = 0
     go_on = input("Do you want to do this very long test? [Y/y]")
     if go_on == "Y" or go_on == "y":
+        t_start = time.time()
         import glob
         import itertools
-        import time
-
-        t_start = time.time()
         if MESA_DIR == "":
             MESA_DIR = get_MESA_DIR()
         inlists_single = glob.glob(MESA_DIR + "/star/test_suite/*/inlist*")
         inlists_binary = glob.glob(MESA_DIR + "/binary/test_suite/*/inlist*")
-        inlists = inlists_binary + inlists_single
+        inlists =  list(set().union(inlists_binary,inlists_single))
+        print(inlists)
+        input("go on?")
         # this below could be parallelized
         for pair in itertools.combinations_with_replacement(inlists, 2):
             inlist1 = pair[0]
@@ -578,12 +579,13 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
                     with open(outfile, "a") as F:
                         F.writelines("FAILED: " + inlist1 + " " + inlist2 + "\n")
                 failed += 1
+        t_end = time.time()
     else:
         t_start = 0
+        t_end = 0
         print("If you don't try nothing fails...that's perfect!")
-    t_end = time.time()
     print("...test took", t_end - t_start, "seconds")
-    return Failed
+    return failed
 
 
 # command line wrapper
