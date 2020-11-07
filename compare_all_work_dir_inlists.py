@@ -152,7 +152,7 @@ def check_if_more_eos(eos: "dict", work_dir="./") -> "list":
     list of the paths to their inlists
     """
     inlists_to_be_read = []
-    if eos.get("read_extra_star_job_inlist1") == ".true.":
+    if eos.get("read_extra_eos_inlist1") == ".true.":
         new_inlist = job.get("extra_eos_inlist1_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if eos.get("read_extra_eos_inlist2") == ".true.":
@@ -176,7 +176,7 @@ def check_if_more_kap(kap: "dict", work_dir="./") -> "list":
     list of the paths to their inlists
     """
     inlists_to_be_read = []
-    if kap.get("read_extra_star_job_inlist1") == ".true.":
+    if kap.get("read_extra_kap_inlist1") == ".true.":
         new_inlist = job.get("extra_kap_inlist1_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist2") == ".true.":
