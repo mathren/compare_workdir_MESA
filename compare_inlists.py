@@ -34,7 +34,7 @@ import click
 # ----- some auxiliary functions ----------------------------------
 
 
-def getNameVal(line: str):
+def get_name_val(line: "str"):
     """
     read the line removing comments and white spaces
     and returns the name of the option and the associated value
@@ -45,7 +45,7 @@ def getNameVal(line: str):
     return optionName, value
 
 
-def convertBool(val):
+def conver_bool(val: "str") -> "str":
     """ fix occasional typo in MESA docs, might not be needed """
     if (val == ".true.") or (val == ".true"):
         return ".true."
@@ -55,7 +55,7 @@ def convertBool(val):
         return val
 
 
-def convertFloat(val):
+def convert_float(val: "str") -> "float":
     """
     convert inlists entries into python floats
     to avoid mismatch do to formatting issues
@@ -68,14 +68,14 @@ def convertFloat(val):
         return val
 
 
-def cleanVal(val):
+def clean_val(val):
     """ clean values in inlists """
-    val = convertFloat(val)
-    val = convertBool(val)
+    val = convert_float(val)
+    val = conver_bool(val)
     return val
 
 
-def getMESA_DIR() -> str:
+def get_MESA_DIR() -> str:
     """
     Read the MESA_DIR in the environment variables if not provided,
     and returns it as a string.
@@ -92,7 +92,7 @@ def getMESA_DIR() -> str:
 # ----------------------- read the defaults ----------------------------------
 
 
-def getDefaults(namelist: str, MESA_DIR=""):
+def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
     """
     read the namelists from the MESA_DIR folder.
     MESA_DIR will be read from the environment variables if it is an empty string
@@ -102,7 +102,7 @@ def getDefaults(namelist: str, MESA_DIR=""):
     """
     defaults = {}
     if MESA_DIR == "":
-        MESA_DIR = getMESA_DIR()
+        MESA_DIR = get_MESA_DIR()
     if namelist.lower() == "star_job":
         defaultFname = Path(MESA_DIR + "/star/defaults/star_job.defaults")
     elif namelist.lower() == "binary_job":
@@ -131,8 +131,8 @@ def getDefaults(namelist: str, MESA_DIR=""):
                 # empty line or comment, move on
                 continue
             else:
-                optionName, value = getNameVal(l)
-                value = cleanVal(value)
+                optionName, value = get_name_val(l)
+                value = clean_val(value)
                 defaults[optionName] = value
     # Note, the longest key is ~45 characters in length, hence the 45 further down in the string formatting
     return defaults
@@ -140,109 +140,166 @@ def getDefaults(namelist: str, MESA_DIR=""):
 
 # --------------------- read namelist of the inlists -------------------------
 
-
-def getJobNamelist(inlist: str):
+def get_job_namelist(inlist: "str"):
     """
     returns a dictionary of the star_job or binary_job namelist entries
     inside inlist, and values and a flag for binaries
     """
     job = {}
-    isBinary = False
+    is_binary = False
     with open(inlist, "r") as i1:
-        inJobNamelist = False
+        in_job_namelist = False
         for i, line in enumerate(i1):
             # print(line.strip('\n\r'))
             l = line.strip("\n\r").rstrip().lstrip()  # remove \n and white spaces
             if "&star_job" == l.lower():
-                inJobNamelist = True
-                isBinary = False
+                in_job_namelist = True
+                is_binary = False
                 continue  # to avoid adding the first line
             elif "&binary_job" == l.lower():
-                inJobNamelist = True
-                isBinary = True
+                in_job_namelist = True
+                is_binary = True
                 continue  # to avoid adding the first line
-            if inJobNamelist:
+            if in_job_namelist:
                 if (l == "") or (l[0] == "!"):
                     # skip empty lines
                     pass
                 else:
                     if l[0] == "/":  # exit
-                        inJobNamelist = False
+                        in_job_namelist = False
                         break
                     else:
-                        optionName, value = getNameVal(l)
-                        value = cleanVal(value)
-                        job[optionName] = value
-    return job, isBinary
+                        option_name, value = get_name_val(l)
+                        value = clean_val(value)
+                        job[option_name] = value
+    return job, is_binary
 
 
-def getControlsNamelist(inlist: str):
+def get_controls_namelist(inlist: "str") -> "dict":
     """
     returns a dictionary of the controls or binary_controls namelist entries and values
     and a flag for binaries
     """
     controls = {}
-    isBinary = False
+    is_binary = False
     with open(inlist, "r") as i1:
-        inControlsNamelist = False
+        in_controls_namelist = False
         for i, line in enumerate(i1):
             # print(line.strip('\n\r'))
             l = line.strip("\n\r").rstrip().lstrip()  # remove \n and white spaces
             if "&controls" == l.lower():
-                inControlsNamelist = True
-                isBinary = False
+                in_controls_namelist = True
+                is_binary = False
                 continue  # to avoid adding the first line
             elif "&binary_controls" == l.lower():
-                inControlsNamelist = True
-                isBinary = True
+                in_controls_namelist = True
+                is_binary = True
                 continue  # to avoid adding the first line
-            if inControlsNamelist:
+            if in_controls_namelist:
                 if (l == "") or (l[0] == "!"):
                     # skip empty lines
                     pass
                 else:
                     if l[0] == "/":  # exit
-                        inControlsNamelist = False
+                        in_controls_namelist = False
                         break
                     else:
-                        optionName, value = getNameVal(l)
-                        value = cleanVal(value)
-                        controls[optionName] = value
-    return controls, isBinary
+                        option_name, value = get_name_val(l)
+                        value = clean_val(value)
+                        controls[option_name] = value
+    return controls, is_binary
 
 
-def getPgstarNamelist(inlist: str):
+
+def get_eos_namelist(inlist: "str")-> "dict":
+    """
+    returns a dictionary of the eos and values
+    """
+    eos = {}
+    with open(inlist, "r") as i1:
+        in_eos_namelist = False
+        for i, line in enumerate(i1):
+            # print(line.strip('\n\r'))
+            l = line.strip("\n\r").rstrip().lstrip()  # remove \n and white spaces
+            if "&eos" == l.lower():
+                in_eos_namelist = True
+                continue  # to avoid adding the first line
+            if in_eos_namelist:
+                if (l == "") or (l[0] == "!"):
+                    # skip empty lines
+                    pass
+                else:
+                    if l[0] == "/":  # exit
+                        in_controls_namelist = False
+                        break
+                    else:
+                        option_name, value = get_name_val(l)
+                        value = clean_val(value)
+                        eos[option_name] = value
+    return eos
+
+
+
+def get_kap_namelist(inlist: "str")-> "dict" :
+    """
+    returns a dictionary of the kap and values
+    """
+    kap = {}
+    with open(inlist, "r") as i1:
+        in_kap_namelist = False
+        for i, line in enumerate(i1):
+            # print(line.strip('\n\r'))
+            l = line.strip("\n\r").rstrip().lstrip()  # remove \n and white spaces
+            if "&kap" == l.lower():
+                in_kap_namelist = True
+                continue  # to avoid adding the first line
+            if in_kap_namelist:
+                if (l == "") or (l[0] == "!"):
+                    # skip empty lines
+                    pass
+                else:
+                    if l[0] == "/":  # exit
+                        in_controls_namelist = False
+                        break
+                    else:
+                        option_name, value = get_name_val(l)
+                        value = clean_val(value)
+                        kap[option_name] = value
+    return kap
+
+
+def get_pgstar_namelist(inlist: "str")-> "dict" :
     """
     returns a dictionary of the pgstar namelist entries and values
     """
     pgstar = {}
     with open(inlist, "r") as i1:
-        inPgstarNamelist = False
+        in_pgstar_namelist = False
         for i, line in enumerate(i1):
             # print(line.strip('\n\r'))
             l = line.strip("\n\r").rstrip().lstrip()  # remove \n and white spaces
             if "&pgstar" == l.lower():
-                inPgstarNamelist = True
+                in_pgstar_namelist = True
                 continue  # to avoid adding the first line
-            if inPgstarNamelist:
+            if in_pgstar_namelist:
                 if (l == "") or (l[0] == "!"):
                     # skip empty lines
                     pass
                 else:
                     if l[0] == "/":  # exit
-                        inPgstarNamelist = False
+                        in_pgstar_namelist = False
                         break
                     else:
-                        optionName, value = getNameVal(l)
-                        value = cleanVal(value)
-                        pgstar[optionName] = value
+                        option_name, value = get_name_val(l)
+                        value = clean_val(value)
+                        pgstar[option_name] = value
     return pgstar
 
 
 # ---------- compare namelists entries between each other and defaults -------------------------
 
 
-def compareAndReport(k: str, dic1: dict, dic2: dict, string1: str, string2: str, vb=False):
+def compare_and_report(k: "str", dic1: "dict", dic2: "dict", string1: "str", string2: "str", vb=False):
     """
     Given two dictionaries, compares their entry k.
     Assumes the inlist name is less than 30 characters.
@@ -258,8 +315,8 @@ def compareAndReport(k: str, dic1: dict, dic2: dict, string1: str, string2: str,
         print("")
 
 
-def compareDefaultsAndReport(
-    k: str, dic: dict, dic_defaults: dict, string: str, string_other: str, vb=False
+def compare_defaults_and_report(
+    k: "str", dic: "dict", dic_defaults: "dict", string: "str", string_other: "str", vb=False
 ):
     """
     Given two dictionaries, compares the entry with key k and prints if not default.
@@ -287,94 +344,124 @@ def compareDefaultsAndReport(
 # --------------do the diff individual namelists ---------------------------
 
 
-def diffStarJob(job1: dict, job2: dict, string1: str, string2: str, MESA_DIR="", vb=False):
+def diff_starjob(job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in job1.keys() & job2.keys():
-        compareAndReport(k, job1, job2, string1, string2, vb)
+        compare_and_report(k, job1, job2, string1, string2, vb)
     # check keys that are not in both and check if they are different than defaults
-    defaults = getDefaults("star_job", MESA_DIR)
+    defaults = get_defaults("star_job", MESA_DIR)
     # keys in job1 but not job2
     k1 = set(job1.keys()).difference(set(job2.keys()))
     for k in k1:
-        compareDefaultsAndReport(k, job1, defaults, string1, string2, vb)
+        compare_defaults_and_report(k, job1, defaults, string1, string2, vb)
     # keys in job2 but not job1
     k2 = set(job2.keys()).difference(set(job1.keys()))
     for k in k2:
-        compareDefaultsAndReport(k, job2, defaults, string2, string1, vb)
+        compare_defaults_and_report(k, job2, defaults, string2, string1, vb)
+
+def diff_eos(eos1: "dict", eos2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
+    # check the keys appearing in both
+    for k in eos1.keys() & eos2.keys():
+        compare_and_report(k, eos1, eos2, string1, string2, vb)
+    # check keys that are not in both and check if they are different than defaults
+    defaults = get_defaults("eos", MESA_DIR)
+    # keys in job1 but not job2
+    k1 = set(eos1.keys()).difference(set(eos2.keys()))
+    for k in k1:
+        compare_defaults_and_report(k, eos1, defaults, string1, string2, vb)
+    # keys in job2 but not job1
+    k2 = set(eos2.keys()).difference(set(eos1.keys()))
+    for k in k2:
+        compare_defaults_and_report(k, eos2, defaults, string2, string1, vb)
+
+def diff_kap(kap1: "dict", kap2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
+    # check the keys appearing in both
+    for k in kap1.keys() & kap2.keys():
+        compare_and_report(k, kap1, kap2, string1, string2, vb)
+    # check keys that are not in both and check if they are different than defaults
+    defaults = get_defaults("kap", MESA_DIR)
+    # keys in job1 but not job2
+    k1 = set(kap1.keys()).difference(set(kap2.keys()))
+    for k in k1:
+        compare_defaults_and_report(k, kap1, defaults, string1, string2, vb)
+    # keys in job2 but not job1
+    k2 = set(kap2.keys()).difference(set(kap1.keys()))
+    for k in k2:
+        compare_defaults_and_report(k, kap2, defaults, string2, string1, vb)
 
 
-def diffControls(
-    controls1: dict, controls2: dict, string1: str, string2: str, MESA_DIR="", vb=False
+def diff_controls(
+    controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
 ):
     # check the keys appearing in both
     for k in controls1.keys() & controls2.keys():
-        compareAndReport(k, controls1, controls2, string1, string2, vb)
+        compare_and_report(k, controls1, controls2, string1, string2, vb)
     # check keys that are not in both and check if they are different than defaults
-    defaults = getDefaults("controls", MESA_DIR)
+    defaults = get_defaults("controls", MESA_DIR)
     # keys in controls1 but not controls2
     k1 = set(controls1.keys()).difference(set(controls2.keys()))
     for k in k1:
-        compareDefaultsAndReport(k, controls1, defaults, string1, string2, vb)
+        compare_defaults_and_report(k, controls1, defaults, string1, string2, vb)
     # keys in controls2 but not controls1
     k2 = set(controls2.keys()).difference(set(controls1.keys()))
     for k in k2:
-        compareDefaultsAndReport(k, controls2, defaults, string2, string1, vb)
+        compare_defaults_and_report(k, controls2, defaults, string2, string1, vb)
 
 
-def diffPgstar(pgstar1: dict, pgstar2: dict, string1: str, string2: str, MESA_DIR="", vb=False):
+def diff_pgstar(pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in pgstar1.keys() & pgstar2.keys():
-        compareAndReport(k, pgstar1, pgstar2, string1, string2, vb)
+        compare_and_report(k, pgstar1, pgstar2, string1, string2, vb)
     # check keys that are not in both and check if they are different than defaults
-    defaults = getDefaults("pgstar", MESA_DIR)
+    defaults = get_defaults("pgstar", MESA_DIR)
     # keys in pgstar1 but not pgstar2
     k1 = set(pgstar1.keys()).difference(set(pgstar2.keys()))
     for k in k1:
-        compareDefaultsAndReport(k, pgstar1, defaults, string1, string2, vb)
+        compare_defaults_and_report(k, pgstar1, defaults, string1, string2, vb)
     # keys in pgstar2 but not pgstar1
     k2 = set(pgstar2.keys()).difference(set(pgstar1.keys()))
     for k in k2:
-        compareDefaultsAndReport(k, pgstar2, defaults, string2, string1, vb)
+        compare_defaults_and_report(k, pgstar2, defaults, string2, string1, vb)
 
 
-def diffBinaryJob(job1: dict, job2: dict, string1: str, string2: str, MESA_DIR="", vb=False):
+def diff_binary_job(job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in job1.keys() & job2.keys():
-        compareAndReport(k, job1, job2, string1, string2, vb)
+        compare_and_report(k, job1, job2, string1, string2, vb)
     # check keys that are not in both and check if they are different than defaults
-    defaults = getDefaults("binary_job", MESA_DIR)
+    defaults = get_defaults("binary_job", MESA_DIR)
     # keys in job1 but not job2
     k1 = set(job1.keys()).difference(set(job2.keys()))
     for k in k1:
-        compareDefaultsAndReport(k, job1, defaults, string1, string2, vb)
+        compare_defaults_and_report(k, job1, defaults, string1, string2, vb)
     # keys in job2 but not job1
     k2 = set(job2.keys()).difference(set(job1.keys()))
     for k in k2:
-        compareDefaultsAndReport(k, job2, defaults, string2, string1, vb)
+        compare_defaults_and_report(k, job2, defaults, string2, string1, vb)
 
 
-def diffBinaryControls(
-    controls1: dict, controls2: dict, string1: str, string2: str, MESA_DIR="", vb=False
+def diff_binary_controls(
+    controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
 ):
     # check the keys appearing in both
     for k in controls1.keys() & controls2.keys():
-        compareAndReport(k, controls1, controls2, string1, string2, vb)
+        compare_and_report(k, controls1, controls2, string1, string2, vb)
     # check keys that are not in both and check if they are different than defaults
-    defaults = getDefaults("binary_controls", MESA_DIR)
+    defaults = get_defaults("binary_controls", MESA_DIR)
     # keys in controls1 but not controls2
     k1 = set(controls1.keys()).difference(set(controls2.keys()))
     for k in k1:
-        compareDefaultsAndReport(k, controls1, defaults, string1, string2, vb)
+        compare_defaults_and_report(k, controls1, defaults, string1, string2, vb)
     # keys in controls2 but not controls1
     k2 = set(controls2.keys()).difference(set(controls1.keys()))
     for k in k2:
-        compareDefaultsAndReport(k, controls2, defaults, string2, string1, vb)
+        compare_defaults_and_report(k, controls2, defaults, string2, string1, vb)
 
 
 # ----------- do the diff of the whole inlists ----------------------------
 
 
-def diffInlists(inlist1: str, inlist2: str, doPgstar=False, MESA_DIR="", vb=False):
+def diff_inlists(inlist1: "str", inlist2: "str", do_pgstar=False, MESA_DIR="", vb=False):
     """
     Takes the path of two inlists and compares them taking care of
     comments and missing entries set to default.
@@ -382,61 +469,79 @@ def diffInlists(inlist1: str, inlist2: str, doPgstar=False, MESA_DIR="", vb=Fals
     Will ignore order, comments, and empty lines. Works for single stars and binaries.
     """
     if MESA_DIR == "":
-        MESA_DIR = getMESA_DIR()
+        MESA_DIR = get_MESA_DIR()
         # print(MESA_DIR)
     name1 = "1: " + inlist1.split("/")[-1]
     name2 = "2: " + inlist2.split("/")[-1]
     ## check star_job
     print("")
-    job1, isBinary1 = getJobNamelist(inlist1)
-    job2, isBinary2 = getJobNamelist(inlist2)
-    if isBinary1 != isBinary2:
+    job1, is_binary1 = get_job_namelist(inlist1)
+    job2, is_binary2 = get_job_namelist(inlist2)
+    if is_binary1 != is_binary2:
         print(colored("ERROR: comparing binary to single star!", "red"))
         return
     else:
-        if isBinary1 == False:
+        if is_binary1 == False:
             print("&star_job")
             print("")
-            diffStarJob(job1, job2, name1, name2, MESA_DIR, vb)
+            diff_starjob(job1, job2, name1, name2, MESA_DIR, vb)
             print("")
             print("/ !end star_job namelist")
         else:
             print("&binary_job")
             print("")
-            diffBinaryJob(job1, job2, name1, name2, MESA_DIR, vb)
+            diff_binary_job(job1, job2, name1, name2, MESA_DIR, vb)
             print("")
             print("/ !end binary_job namelist")
-    ## check constrols
+    ## check eos
     print("")
-    controls1, isBinary1 = getControlsNamelist(inlist1)
-    controls2, isBinary2 = getControlsNamelist(inlist2)
-    if isBinary1 != isBinary2:
+    eos1 = get_eos_namelist(inlist1)
+    eos2 = get_eos_namelist(inlist2)
+    print("&eos")
+    print("")
+    diff_eos(eos1, eos2, name1, name2, MESA_DIR, vb)
+    print("")
+    print("/ !end eos namelist")
+    ## check kap
+    print("")
+    kap1 = get_kap_namelist(inlist1)
+    kap2 = get_kap_namelist(inlist2)
+    print("&kap")
+    print("")
+    diff_kap(kap1, kap2, name1, name2, MESA_DIR, vb)
+    print("")
+    print("/ !end kap namelist")
+    ## check controls
+    print("")
+    controls1, is_binary1 = get_controls_namelist(inlist1)
+    controls2, is_binary2 = get_controls_namelist(inlist2)
+    if is_binary1 != is_binary2:
         print(colored("ERROR: comparing binary to single star!", "red"))
         return
     else:
-        if isBinary1 == False:
+        if is_binary1 == False:
             print("&controls")
             print("")
-            diffControls(
+            diff_controls(
                 controls1, controls2, name1, name2, MESA_DIR, vb,
             )
         else:
             print("&binary_controls")
             print("")
-            diffBinaryControls(
+            diff_binary_controls(
                 controls1, controls2, name1, name2, MESA_DIR, vb,
             )
     print("")
     print("/ !end controls namelist")
-    if doPgstar:
+    if do_pgstar:
         # check pgstar
         # this will compare single pgstar namelists and binaries
         print("")
         print("&pgstar")
         print("")
-        pgstar1 = getPgstarNamelist(inlist1)
-        pgstar2 = getPgstarNamelist(inlist2)
-        diffPgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
+        pgstar1 = get_pgstar_namelist(inlist1)
+        pgstar2 = get_pgstar_namelist(inlist2)
+        diff_pgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
         print("")
         print("/ !end pgstar")
 
@@ -444,11 +549,11 @@ def diffInlists(inlist1: str, inlist2: str, doPgstar=False, MESA_DIR="", vb=Fals
 # # ----------------- for testing on the MESA test_suite -------------------------------
 
 
-def test_diffInlists(outfile="", MESA_DIR=""):
+def test_diff_inlists(outfile="", MESA_DIR=""):
     """
     Run all possible pairs of inlists from the test_suite as a test
     """
-    Failed = 0
+    failed = 0
     go_on = input("Do you want to do this very long test? [Y/y]")
     if go_on == "Y" or go_on == "y":
         import glob
@@ -457,7 +562,7 @@ def test_diffInlists(outfile="", MESA_DIR=""):
 
         t_start = time.time()
         if MESA_DIR == "":
-            MESA_DIR = getMESA_DIR()
+            MESA_DIR = get_MESA_DIR()
         inlists_single = glob.glob(MESA_DIR + "/star/test_suite/*/inlist*")
         inlists_binary = glob.glob(MESA_DIR + "/binary/test_suite/*/inlist*")
         inlists = inlists_binary + inlists_single
@@ -466,13 +571,13 @@ def test_diffInlists(outfile="", MESA_DIR=""):
             inlist1 = pair[0]
             inlist2 = pair[1]
             try:
-                diffInlists(inlist1, inlist2, doPgstar=True)
+                diff_inlists(inlist1, inlist2, do_pgstar=True)
             except:
                 print(colored("FAILED: " + inlist1 + " " + inlist2, "yellow"))
                 if outfile != "":
                     with open(outfile, "a") as F:
                         F.writelines("FAILED: " + inlist1 + " " + inlist2 + "\n")
-                Failed += 1
+                failed += 1
     else:
         t_start = 0
         print("If you don't try nothing fails...that's perfect!")
@@ -493,7 +598,7 @@ def test_diffInlists(outfile="", MESA_DIR=""):
 )
 @click.option("--vb", default=False, help="Show also matching lines using green.")
 def cli_wrapper(inlist1: str, inlist2: str, pgstar: bool, mesa_dir: str, vb: bool):
-    diffInlists(inlist1, inlist2, doPgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
+    diff_inlists(inlist1, inlist2, do_pgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
     print("")
     print("*********")
     print("* done! *")
