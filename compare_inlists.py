@@ -27,7 +27,6 @@ import sys
 from pathlib import Path
 ## pip install -U termcolor
 from termcolor import colored
-
 ## pip install -U click
 import click
 

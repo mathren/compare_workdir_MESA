@@ -23,7 +23,7 @@ Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 Options:
   --pgstar TEXT    Show also diff of pgstar namelists.
   --mesa_dir TEXT  use customized location of $MESA_DIR. Will use environment
-                   variable if empty and return an error if empty.
+                   variable if empty.
   --vb TEXT        Show also matching lines using green.
   --help           Show this message and exit.
 ```
