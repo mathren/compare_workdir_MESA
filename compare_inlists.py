@@ -112,9 +112,21 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
     elif namelist.lower() == "binary_controls":
         defaultFname = Path(MESA_DIR + "/binary/defaults/binary_controls.defaults")
     elif namelist.lower() == "eos":
-        defaultFname = Path(MESA_DIR + "/eos/defaults/eos.defaults")
+        if Path(MESA_DIR + "/eos/defaults/eos.defaults").exists():
+            defaultFname = Path(MESA_DIR + "/eos/defaults/eos.defaults")
+        else:
+            print(colored("***********************************", "red"))
+            print(colored("eos namelist not found in "+MESA_DIR, "red"))
+            print(colored("***********************************", "red"))
+            sys.exit()
     elif namelist.lower() == "kap":
-        defaultFname = Path(MESA_DIR + "/kap/defaults/kap.defaults")
+        if Path(MESA_DIR + "/eos/defaults/kap.defaults").exists():
+            defaultFname = Path(MESA_DIR + "/kap/defaults/kap.defaults")
+        else:
+            print(colored("***********************************", "red"))
+            print(colored("kap namelist not found in "+MESA_DIR, "red"))
+            print(colored("***********************************", "red"))
+            sys.exit()
     elif namelist.lower() == "pgstar":
         defaultFname = Path(MESA_DIR + "/star/defaults/pgstar.defaults")
     else:
