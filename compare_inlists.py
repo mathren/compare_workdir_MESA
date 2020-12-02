@@ -120,7 +120,7 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
             print(colored("***********************************", "yellow"))
             sys.exit()
     elif namelist.lower() == "kap":
-        if Path(MESA_DIR + "/eos/defaults/kap.defaults").exists():
+        if Path(MESA_DIR + "/kap/defaults/kap.defaults").exists():
             defaultFname = Path(MESA_DIR + "/kap/defaults/kap.defaults")
         else:
             print(colored("***********************************", "yellow"))
