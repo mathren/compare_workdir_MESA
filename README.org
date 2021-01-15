@@ -87,7 +87,7 @@ If called on a pair of folders both for single stars (or both for
 binaries), it first builds a "main" dictionary with of all the
 options MESA reads for each namelist, starting from =inlist= and
 checking if it contains nested namelists. It then performs the
-comparison of the "master" dictionaries of the two folders. If the
+comparison of the "main" dictionaries of the two folders. If the
 same =read_extra_star_job_inlist*= (i.e. same number instead of the
 =*=) appears in multiple nested inlists the last read will over-write
 the previous, which is the same behavior as in MESA. Same for controls
