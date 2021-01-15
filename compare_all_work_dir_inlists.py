@@ -1,36 +1,36 @@
-## author: Mathieu Renzo
+# author: Mathieu Renzo
 
-## Author: Mathieu Renzo <mathren90@gmail.com>
-## Keywords: files
+# Author: Mathieu Renzo <mathren90@gmail.com>
+# Keywords: files
 
-## Copyright (C) 2019-2020 Mathieu Renzo
+# Copyright (C) 2019-2020 Mathieu Renzo
 
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or (at
-## your option) any later version.
-##
-## This program is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-## General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see http://www.gnu.org/licenses/.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses/.
 
 
-## This has been tested with MESA version 12778
-## Testing on MESA version 14883 in progress
+# This has been tested with MESA version 12778
+# Testing on MESA version 14883 in progress
 
 import os
 import sys
 from pathlib import Path
-## pip install -U termcolor
-from termcolor import colored
-## pip install -U click
-import click
 
-# sys.path.append('path/to/folder/plotFunc/')
+# pip install -U termcolor
+from termcolor import colored
+
+# pip install -U click
+import click
 from compare_inlists import (
     get_job_namelist,
     get_controls_namelist,
@@ -68,7 +68,7 @@ def get_first_inlist(work_dir: "str") -> "str":
         sys.exit()
 
 
-def is_folder_binary(work_dir: "str")  -> "bool":
+def is_folder_binary(work_dir: "str") -> "bool":
     """
     checks if the provided path is to a work directory for a MESA binary run
     (returns True) or single star (returns False)
@@ -146,6 +146,7 @@ def check_if_more_star_job(job: "dict", work_dir="./") -> "list":
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
+
 def check_if_more_eos(eos: "dict", work_dir="./") -> "list":
     """
     Check if there are more eos namelists to be read and returns a
@@ -194,7 +195,7 @@ def check_if_more_kap(kap: "dict", work_dir="./") -> "list":
     return inlists_to_be_read
 
 
-def check_if_more_binary_job(job: "dict", work_dir="./")  -> "list":
+def check_if_more_binary_job(job: "dict", work_dir="./") -> "list":
     """
     Check if there are more binary_job namelists to be read and returns a
     list of the paths to their inlists
@@ -415,6 +416,7 @@ def build_top_eos(work_dir: "str", first_inlist="") -> "dict":
                 inlists_to_be_read = inlists_to_add
     return eos
 
+
 def build_top_kap(work_dir: "str", first_inlist="") -> "dict":
     """
     Builds the kap namelist by reading the inlists starting from inlist, unless an
@@ -445,7 +447,6 @@ def build_top_kap(work_dir: "str", first_inlist="") -> "dict":
                 # could be that inlists_to_be_read is empty
                 inlists_to_be_read = inlists_to_add
     return kap
-
 
 
 def build_top_controls(work_dir: "str", first_inlist=""):
@@ -793,14 +794,20 @@ def compare_binary_work_dirs(work1: "str", work2: "str", do_pgstar=False, MESA_D
     print("**************************")
 
 
-def check_folders_consistency(work_dir1: str, work_dir2: str, do_pgstar=False, MESA_DIR="", vb=False):
+def check_folders_consistency(
+    work_dir1: str, work_dir2: str, do_pgstar=False, MESA_DIR="", vb=False
+):
     """ checks if both folders are for single or binary stars and calls the right functions"""
     is_binary1 = is_folder_binary(work_dir1)
     is_binary2 = is_folder_binary(work_dir2)
     if is_binary1 and is_binary2:
-        compare_binary_work_dirs(work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb)
+        compare_binary_work_dirs(
+            work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb
+        )
     elif (not is_binary1) and (not is_binary2):
-        compare_single_work_dirs(work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb)
+        compare_single_work_dirs(
+            work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb
+        )
     else:
         print(colored("You're asking to compare a single star directory with a binary.", "yellow",))
         print(colored("I politely decline to do so.", "yellow"))

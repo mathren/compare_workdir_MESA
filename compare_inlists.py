@@ -1,33 +1,35 @@
-## author: Mathieu Renzo
+# author: Mathieu Renzo
 
-## Author: Mathieu Renzo <mathren90@gmail.com>
-## Keywords: files
+# Author: Mathieu Renzo <mathren90@gmail.com>
+# Keywords: files
 
-## Copyright (C) 2019-2020 Mathieu Renzo
+# Copyright (C) 2019-2020 Mathieu Renzo
 
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or (at
-## your option) any later version.
-##
-## This program is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-## General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see http://www.gnu.org/licenses/.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses/.
 
 
-## This has been tested with MESA version 12778
-## Testing on MESA version 14883 in progress
+# This has been tested with MESA version 12778
+# Testing on MESA version 14883 in progress
 
 import os
 import sys
 from pathlib import Path
-## pip install -U termcolor
+
+# pip install -U termcolor
 from termcolor import colored
-## pip install -U click
+
+# pip install -U click
 import click
 
 
@@ -92,7 +94,7 @@ def get_MESA_DIR() -> str:
 # ----------------------- read the defaults ----------------------------------
 
 
-def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
+def get_defaults(namelist: str, MESA_DIR="") -> "dict":
     """
     read the namelists from the MESA_DIR folder.
     MESA_DIR will be read from the environment variables if it is an empty string
@@ -116,7 +118,7 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
             defaultFname = Path(MESA_DIR + "/eos/defaults/eos.defaults")
         else:
             print(colored("***********************************", "yellow"))
-            print(colored("eos namelist not found in "+MESA_DIR, "yellow"))
+            print(colored("eos namelist not found in " + MESA_DIR, "yellow"))
             print(colored("***********************************", "yellow"))
             sys.exit()
     elif namelist.lower() == "kap":
@@ -124,7 +126,7 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
             defaultFname = Path(MESA_DIR + "/kap/defaults/kap.defaults")
         else:
             print(colored("***********************************", "yellow"))
-            print(colored("kap namelist not found in "+MESA_DIR, "yellow"))
+            print(colored("kap namelist not found in " + MESA_DIR, "yellow"))
             print(colored("***********************************", "yellow"))
             sys.exit()
     elif namelist.lower() == "pgstar":
@@ -151,6 +153,7 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict" :
 
 
 # --------------------- read namelist of the inlists -------------------------
+
 
 def get_job_namelist(inlist: "str"):
     """
@@ -222,8 +225,7 @@ def get_controls_namelist(inlist: "str") -> "dict":
     return controls, is_binary
 
 
-
-def get_eos_namelist(inlist: "str")-> "dict":
+def get_eos_namelist(inlist: "str") -> "dict":
     """
     returns a dictionary of the eos and values
     """
@@ -251,8 +253,7 @@ def get_eos_namelist(inlist: "str")-> "dict":
     return eos
 
 
-
-def get_kap_namelist(inlist: "str")-> "dict" :
+def get_kap_namelist(inlist: "str") -> "dict":
     """
     returns a dictionary of the kap and values
     """
@@ -280,7 +281,7 @@ def get_kap_namelist(inlist: "str")-> "dict" :
     return kap
 
 
-def get_pgstar_namelist(inlist: "str")-> "dict" :
+def get_pgstar_namelist(inlist: "str") -> "dict":
     """
     returns a dictionary of the pgstar namelist entries and values
     """
@@ -311,7 +312,9 @@ def get_pgstar_namelist(inlist: "str")-> "dict" :
 # ---------- compare namelists entries between each other and defaults -------------------------
 
 
-def compare_and_report(k: "str", dic1: "dict", dic2: "dict", string1: "str", string2: "str", vb=False):
+def compare_and_report(
+    k: "str", dic1: "dict", dic2: "dict", string1: "str", string2: "str", vb=False
+):
     """
     Given two dictionaries, compares their entry k.
     Assumes the inlist name is less than 30 characters.
@@ -371,6 +374,7 @@ def diff_starjob(job1: "dict", job2: "dict", string1: "str", string2: "str", MES
     for k in k2:
         compare_defaults_and_report(k, job2, defaults, string2, string1, vb)
 
+
 def diff_eos(eos1: "dict", eos2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in eos1.keys() & eos2.keys():
@@ -385,6 +389,7 @@ def diff_eos(eos1: "dict", eos2: "dict", string1: "str", string2: "str", MESA_DI
     k2 = set(eos2.keys()).difference(set(eos1.keys()))
     for k in k2:
         compare_defaults_and_report(k, eos2, defaults, string2, string1, vb)
+
 
 def diff_kap(kap1: "dict", kap2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
@@ -420,7 +425,9 @@ def diff_controls(
         compare_defaults_and_report(k, controls2, defaults, string2, string1, vb)
 
 
-def diff_pgstar(pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
+def diff_pgstar(
+    pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
+):
     # check the keys appearing in both
     for k in pgstar1.keys() & pgstar2.keys():
         compare_and_report(k, pgstar1, pgstar2, string1, string2, vb)
@@ -436,7 +443,9 @@ def diff_pgstar(pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str"
         compare_defaults_and_report(k, pgstar2, defaults, string2, string1, vb)
 
 
-def diff_binary_job(job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
+def diff_binary_job(
+    job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
+):
     # check the keys appearing in both
     for k in job1.keys() & job2.keys():
         compare_and_report(k, job1, job2, string1, string2, vb)
@@ -566,17 +575,19 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
     Run all possible pairs of inlists from the test_suite as a test
     """
     import time
+
     failed = 0
     go_on = input("Do you want to do this very long test? [Y/y]")
     if go_on == "Y" or go_on == "y":
         t_start = time.time()
         import glob
         import itertools
+
         if MESA_DIR == "":
             MESA_DIR = get_MESA_DIR()
         inlists_single = glob.glob(MESA_DIR + "/star/test_suite/*/inlist*")
         inlists_binary = glob.glob(MESA_DIR + "/binary/test_suite/*/inlist*")
-        inlists =  list(set().union(inlists_binary,inlists_single))
+        inlists = list(set().union(inlists_binary, inlists_single))
         print(inlists)
         input("go on?")
         # this below could be parallelized
