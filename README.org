@@ -10,7 +10,7 @@ line-by-line diff of two inlists, ignoring comments and empty lines,
 and checking the defaults from the documentation when entries are
 missing. It *assumes you use the same MESA version* for this last task.
 
-This can be used inside of scripts or notebooks, or from command line, thanks to [[https://github.com/pallets/click][=click=]].
+This can be used inside of scripts or notebooks, or from command line, thanks to [[https://github.com/pallets/click][click]].
 
 
 * How to use =compare_inlists.py=
@@ -28,13 +28,13 @@ Options:
   --help           Show this message and exit.
 #+END_SRC
 
-It uses [[https://pypi.org/project/termcolor/][=termcolor=]] to print in red entries that differ between
+It uses =[[https://pypi.org/project/termcolor/][termcolor]]= to print in red entries that differ between
 two inlists, and, if invoked adding =--vb=True= (for verbose) from the command
 line it will also print in green entries that are equal. If one entry
 is in one inlist but not the other, but the inlist that contains it
 has the default value, it is considered as a "green" entry.
 
-This has been tested with MESA version 12778, and works for inlists
+This has been tested with MESA version 12778 or later, and works for inlists
 for single stars and binaries (but will refuse to compare input for a
 single star and for a binary with each other). It can take a
 customized =$MESA_DIR= with the optional argument =--mesa_dir=. If not
@@ -49,7 +49,7 @@ I need it less, but it can be enabled using =--pgstar=True=.
 A screenshot of an example with =--vb=True= and =$MESA_DIR= not set as
 environment variable, but passed as command line option:
 
-![example](/examples/verbose.png?raw=true "verbose output")
+[[example][/examples/verbose.png?raw=true "verbose output"]]
 
 
 * How to use =compare_all_work_dir_inlists.py=
@@ -67,7 +67,7 @@ used to create a comparison (e.g., of a single star with the donor of
 a binary), it's just not ready yet.
 
 As =compare_inlists.py=, it can be used inside of scripts or notebooks, or from command line,
-thanks to [[https://github.com/pallets/click][=click=]].
+thanks to =[[https://github.com/pallets/click][click]]=.
 
 #+BEGIN_SRC sh
 python compare_all_work_dir_inlists.py --help
