@@ -85,38 +85,38 @@ def get_top_binary_inlist(job1: "dict", job2: "dict", MESA_DIR=""):
     """
     # primary first binary
     try:
-        master_inlist_star1_b1 = job1["inlist_names(1)"]
+        main_inlist_star1_b1 = job1["inlist_names(1)"]
     except KeyError:
         job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
-        master_inlist_star1_b1 = job_defaults["inlist_names(1)"]
+        main_inlist_star1_b1 = job_defaults["inlist_names(1)"]
     # either way you got it, clean it
-    master_inlist_star1_b1 = master_inlist_star1_b1.strip("'").strip('"')
+    main_inlist_star1_b1 = main_inlist_star1_b1.strip("'").strip('"')
     # secondary first binary
     try:
-        master_inlist_star2_b1 = job1["inlist_names(2)"]
+        main_inlist_star2_b1 = job1["inlist_names(2)"]
     except KeyError:
         job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
-        master_inlist_star2_b1 = job_defaults["inlist_names(2)"]
-    master_inlist_star2_b1 = master_inlist_star2_b1.strip("'").strip('"')
+        main_inlist_star2_b1 = job_defaults["inlist_names(2)"]
+    main_inlist_star2_b1 = main_inlist_star2_b1.strip("'").strip('"')
     # primary second binary
     try:
-        master_inlist_star1_b2 = job2["inlist_names(1)"]
+        main_inlist_star1_b2 = job2["inlist_names(1)"]
     except KeyError:
         job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
-        master_inlist_star1_b2 = job_defaults["inlist_names(1)"]
-    master_inlist_star1_b2 = master_inlist_star1_b2.strip("'").strip('"')
+        main_inlist_star1_b2 = job_defaults["inlist_names(1)"]
+    main_inlist_star1_b2 = main_inlist_star1_b2.strip("'").strip('"')
     # secondary first binary
     try:
-        master_inlist_star2_b2 = job2["inlist_names(2)"]
+        main_inlist_star2_b2 = job2["inlist_names(2)"]
     except KeyError:
         job_defaults = get_defaults("binary_job", MESA_DIR=MESA_DIR)
-        master_inlist_star2_b2 = job_defaults["inlist_names(2)"]
-    master_inlist_star2_b2 = master_inlist_star2_b2.strip("'").strip('"')
+        main_inlist_star2_b2 = job_defaults["inlist_names(2)"]
+    main_inlist_star2_b2 = main_inlist_star2_b2.strip("'").strip('"')
     return (
-        master_inlist_star1_b1,
-        master_inlist_star2_b1,
-        master_inlist_star1_b2,
-        master_inlist_star2_b2,
+        main_inlist_star1_b1,
+        main_inlist_star2_b1,
+        main_inlist_star1_b2,
+        main_inlist_star2_b2,
     )
 
 

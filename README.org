@@ -60,14 +60,14 @@ environment variable, but passed as command line option:
 MESA allows to nest namelists (i.e., star_job, controls, and/or
 pgstar, and their binary counterparts) using =read_extra_star_job_inlist*= and
 =extra_star_job_inlist*_name= (and similar). The script =compare_all_work_dir_inlists.py= uses
-the functions defined in =compare_inlists.py=to compare the entire MESA
+the functions defined in =compare_inlists.py= to compare the entire MESA
 setup of two work directories.
 
 It will not work to compare a work directory for a single star with a
 work directory for a binary. However, the functions in the
 =compare_inlists.py= and =compare_all_work_dir_inlists.py= could be
 used to create a comparison (e.g., of a single star with the donor of
-a binary), it's just not ready yet.
+a binary).
 
 As =compare_inlists.py=, it can be used inside of scripts or notebooks, or from command line.
 
@@ -84,7 +84,7 @@ Options:
 #+END_SRC
 
 If called on a pair of folders both for single stars (or both for
-binaries), it first builds a "master" dictionary with of all the
+binaries), it first builds a "main" dictionary with of all the
 options MESA reads for each namelist, starting from =inlist= and
 checking if it contains nested namelists. It then performs the
 comparison of the "master" dictionaries of the two folders. If the
