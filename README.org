@@ -10,7 +10,8 @@ line-by-line diff of two inlists, ignoring comments and empty lines,
 and checking the defaults from the documentation when entries are
 missing. It *assumes you use the same MESA version for both inlists* for this last task.
 
-This can be used inside of scripts or notebooks, or from command line,
+This can be used inside of scripts or notebooks, or from command line
+(which is the usual way I do it),
 thanks to [[https://github.com/pallets/click][click]].
 
 
