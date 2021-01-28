@@ -3,7 +3,7 @@
 # Author: Mathieu Renzo <mathren90@gmail.com>
 # Keywords: files
 
-# Copyright (C) 2019-2020 Mathieu Renzo
+# Copyright (C) 2019-2021 Mathieu Renzo
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -624,11 +624,6 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
 @click.option("--vb", default=False, help="Show also matching lines using green.")
 def cli_wrapper(inlist1: str, inlist2: str, pgstar: bool, mesa_dir: str, vb: bool):
     diff_inlists(inlist1, inlist2, do_pgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
-    print("")
-    print("*********")
-    print("* done! *")
-    print("*********")
-
 
 if __name__ == "__main__":
     cli_wrapper()
