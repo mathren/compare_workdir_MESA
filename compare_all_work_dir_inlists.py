@@ -33,6 +33,8 @@ from termcolor import colored
 import click
 from compare_inlists import (
     get_job_namelist,
+    get_eos_namelist,
+    get_kap_namelist,
     get_controls_namelist,
     get_defaults,
     diff_binary_controls,
@@ -154,19 +156,19 @@ def check_if_more_eos(eos: "dict", work_dir="./") -> "list":
     """
     inlists_to_be_read = []
     if eos.get("read_extra_eos_inlist1") == ".true.":
-        new_inlist = job.get("extra_eos_inlist1_name").strip("'").strip('"')
+        new_inlist = eos.get("extra_eos_inlist1_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if eos.get("read_extra_eos_inlist2") == ".true.":
-        new_inlist = job.get("extra_eos_inlist2_name").strip("'").strip('"')
+        new_inlist = eos.get("extra_eos_inlist2_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if eos.get("read_extra_eos_inlist3") == ".true.":
-        new_inlist = job.get("extra_eos_inlist3_name").strip("'").strip('"')
+        new_inlist = eos.get("extra_eos_inlist3_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if eos.get("read_extra_eos_inlist4") == ".true.":
-        new_inlist = job.get("extra_eos_inlist4_name").strip("'").strip('"')
+        new_inlist = eos.get("extra_eos_inlist4_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if eos.get("read_extra_eos_inlist5") == ".true.":
-        new_inlist = job.get("extra_eos_inlist5_name").strip("'").strip('"')
+        new_inlist = eos.get("extra_eos_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
@@ -178,19 +180,19 @@ def check_if_more_kap(kap: "dict", work_dir="./") -> "list":
     """
     inlists_to_be_read = []
     if kap.get("read_extra_kap_inlist1") == ".true.":
-        new_inlist = job.get("extra_kap_inlist1_name").strip("'").strip('"')
+        new_inlist = kap.get("extra_kap_inlist1_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist2") == ".true.":
-        new_inlist = job.get("extra_kap_inlist2_name").strip("'").strip('"')
+        new_inlist = kap.get("extra_kap_inlist2_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist3") == ".true.":
-        new_inlist = job.get("extra_kap_inlist3_name").strip("'").strip('"')
+        new_inlist = kap.get("extra_kap_inlist3_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist4") == ".true.":
-        new_inlist = job.get("extra_kap_inlist4_name").strip("'").strip('"')
+        new_inlist = kap.get("extra_kap_inlist4_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist5") == ".true.":
-        new_inlist = job.get("extra_kap_inlist5_name").strip("'").strip('"')
+        new_inlist = kap.get("extra_kap_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
@@ -392,18 +394,18 @@ def build_top_eos(work_dir: "str", first_inlist="") -> "dict":
     """
     if first_inlist == "":
         first_inlist = get_first_inlist(work_dir)
-    eos = get_eos_namelist(first_inlist)[0]
+    eos = get_eos_namelist(first_inlist)
     inlists_to_be_read = check_if_more_eos(eos, work_dir=work_dir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " eos namelist")
-        eos_to_add = get_eos_namelist(current_inlist)[0]
+        eos_to_add = get_eos_namelist(current_inlist)
         inlists_to_add = check_if_more_eos(eos_to_add, work_dir=work_dir)
         eos = {**eos, **eos_to_add}
         ## note: if the same read_extra_eos is used in multiple
         ## inlists, only the last one works because settings
-        ## overwrites. That's also how MESA works
+        ## overwrites. That's also how MESA worksg
         # print(eos)
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
@@ -424,13 +426,13 @@ def build_top_kap(work_dir: "str", first_inlist="") -> "dict":
     """
     if first_inlist == "":
         first_inlist = get_first_inlist(work_dir)
-    kap = get_kap_namelist(first_inlist)[0]
+    kap = get_kap_namelist(first_inlist)
     inlists_to_be_read = check_if_more_kap(kap, work_dir=work_dir)
     # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " kap namelist")
-        kap_to_add = get_kap_namelist(current_inlist)[0]
+        kap_to_add = get_kap_namelist(current_inlist)
         inlists_to_add = check_if_more_kap(kap_to_add, work_dir=work_dir)
         kap = {**kap, **kap_to_add}
         ## note: if the same read_extra_kap is used in multiple
