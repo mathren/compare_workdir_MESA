@@ -1,24 +1,23 @@
 
-While experimenting with [[http://mesa.sourceforge.net/][MESA]] and developing setups, I find myself
-rather often comparing inlists (for single and/or binary stars) with
-each other. A simple diff is often not particularly informative
-because of the comments, non-matching order of the entries, or missing
-entries in one file that are present in the other file but have no
-real effect because they are set to the defaults. For this reason,
-I've written the script =compare_inlists.py= which can print a
-line-by-line diff of two inlists, ignoring comments and empty lines,
-and checking the defaults from the documentation when entries are
-missing. It *assumes you use the same MESA version for both inlists* for this last task.
+While experimenting with [[http://mesa.sourceforge.net/][MESA]] and developing setups, I often compare
+inlists (for single and/or binary stars) with each other. A simple
+diff is often not particularly informative because of the comments,
+non-matching order of the entries, or missing entries
+in one file that are present in the other file but have no real effect
+because they are set to the defaults. For this reason, I've written
+the script =compare_inlists.py= which can print an option-by-option diff
+of two inlists, ignoring comments and empty lines, and checking the
+defaults from the documentation when entries are missing. It *assumes
+you use the same MESA version for both inlists* for this last task.
 
 This can be used inside of scripts or notebooks, or from command line
-(which is the usual way I do it),
-thanks to [[https://github.com/pallets/click][click]].
+(which is the usual way I do it), thanks to [[https://github.com/pallets/click][click]].
 
 
 * How to use =compare_inlists.py=
 
 
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 python compare_inlists.py --help
 Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 
@@ -37,8 +36,8 @@ is in one inlist but not the other, but the inlist that contains it
 has the default value, it is considered as a "green" entry.
 
 This has been tested with MESA version 12778 or later, and works for inlists
-for single stars and binaries (but will refuse to compare input for a
-single star and for a binary with each other). It can take a
+for single stars and binaries (but will refuse to compare an
+inlist_binary with an inlist for a single star). It can take a
 customized =$MESA_DIR= with the optional argument =--mesa_dir=. If not
 provided it will use the =$MESA_DIR= environment variable currently
 set.
@@ -48,8 +47,8 @@ I need it less, but it can be enabled using =--pgstar=True=.
 
 ** Example
 
-A screenshot of an example with =--vb=True= and =$MESA_DIR= not set as
-environment variable, but passed as command line option:
+A screenshot of an example with =--vb=True= and =$MESA_DIR= set as
+environment variable:
 
 #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
 [[/examples/verbose.png?raw=true "verbose output"]]
@@ -61,7 +60,8 @@ MESA allows to nest namelists (i.e., star_job, controls, and/or
 pgstar, and their binary counterparts) using =read_extra_star_job_inlist*= and
 =extra_star_job_inlist*_name= (and similar). The script =compare_all_work_dir_inlists.py= uses
 the functions defined in =compare_inlists.py= to compare the entire MESA
-setup of two work directories.
+setup of two work directories, taking care of nested inlist that might
+over-write each others.
 
 It will not work to compare a work directory for a single star with a
 work directory for a binary. However, the functions in the
@@ -71,7 +71,7 @@ a binary).
 
 As =compare_inlists.py=, it can be used inside of scripts or notebooks, or from command line.
 
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 python compare_all_work_dir_inlists.py --help
 Usage: compare_all_work_dir_inlists.py [OPTIONS] WORK_DIR1 WORK_DIR2
 

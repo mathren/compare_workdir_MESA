@@ -495,7 +495,6 @@ def diff_inlists(inlist1: "str", inlist2: "str", do_pgstar=False, MESA_DIR="", v
     name1 = "1: " + inlist1.split("/")[-1]
     name2 = "2: " + inlist2.split("/")[-1]
     ## check star_job
-    print("")
     job1, is_binary1 = get_job_namelist(inlist1)
     job2, is_binary2 = get_job_namelist(inlist2)
     if is_binary1 != is_binary2:
@@ -503,37 +502,30 @@ def diff_inlists(inlist1: "str", inlist2: "str", do_pgstar=False, MESA_DIR="", v
         return
     else:
         if is_binary1 == False:
+            print("")
             print("&star_job")
-            print("")
             diff_starjob(job1, job2, name1, name2, MESA_DIR, vb)
-            print("")
             print("/ !end star_job namelist")
         else:
+            print("")
             print("&binary_job")
-            print("")
             diff_binary_job(job1, job2, name1, name2, MESA_DIR, vb)
-            print("")
             print("/ !end binary_job namelist")
     ## check eos
-    print("")
     eos1 = get_eos_namelist(inlist1)
     eos2 = get_eos_namelist(inlist2)
+    print("")
     print("&eos")
-    print("")
     diff_eos(eos1, eos2, name1, name2, MESA_DIR, vb)
-    print("")
     print("/ !end eos namelist")
     ## check kap
-    print("")
     kap1 = get_kap_namelist(inlist1)
     kap2 = get_kap_namelist(inlist2)
+    print("")
     print("&kap")
-    print("")
     diff_kap(kap1, kap2, name1, name2, MESA_DIR, vb)
-    print("")
     print("/ !end kap namelist")
     ## check controls
-    print("")
     controls1, is_binary1 = get_controls_namelist(inlist1)
     controls2, is_binary2 = get_controls_namelist(inlist2)
     if is_binary1 != is_binary2:
@@ -541,29 +533,26 @@ def diff_inlists(inlist1: "str", inlist2: "str", do_pgstar=False, MESA_DIR="", v
         return
     else:
         if is_binary1 == False:
-            print("&controls")
             print("")
+            print("&controls")
             diff_controls(
                 controls1, controls2, name1, name2, MESA_DIR, vb,
             )
         else:
-            print("&binary_controls")
             print("")
+            print("&binary_controls")
             diff_binary_controls(
                 controls1, controls2, name1, name2, MESA_DIR, vb,
             )
-    print("")
     print("/ !end controls namelist")
     if do_pgstar:
         # check pgstar
         # this will compare single pgstar namelists and binaries
         print("")
         print("&pgstar")
-        print("")
         pgstar1 = get_pgstar_namelist(inlist1)
         pgstar2 = get_pgstar_namelist(inlist2)
         diff_pgstar(pgstar1, pgstar2, name1, name2, MESA_DIR, vb)
-        print("")
         print("/ !end pgstar")
 
 
