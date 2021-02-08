@@ -17,7 +17,7 @@ This can be used inside of scripts or notebooks, or from command line
 * How to use =compare_inlists.py=
 
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC
 python compare_inlists.py --help
 Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 
@@ -71,7 +71,7 @@ a binary).
 
 As =compare_inlists.py=, it can be used inside of scripts or notebooks, or from command line.
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC
 python compare_all_work_dir_inlists.py --help
 Usage: compare_all_work_dir_inlists.py [OPTIONS] WORK_DIR1 WORK_DIR2
 
