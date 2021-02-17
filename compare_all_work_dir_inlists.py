@@ -344,7 +344,7 @@ def build_top_star_job(work_dir: "str", first_inlist="") -> "dict":
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
-        if inlists_to_add != None:
+        if inlists_to_add:
             try:
                 inlists_to_be_read = inlists_to_be_read + inlists_to_add
             except TypeError:
@@ -377,7 +377,7 @@ def build_top_binary_job(work_dir: "str", first_inlist="") -> "dict":
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
-        if not inlists_to_add:
+        if inlists_to_add:
             try:
                 inlists_to_be_read = inlists_to_be_read + inlists_to_add
             except TypeError:
@@ -410,7 +410,7 @@ def build_top_eos(work_dir: "str", first_inlist="") -> "dict":
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
-        if not inlists_to_add:
+        if inlists_to_add:
             try:
                 inlists_to_be_read = inlists_to_be_read + inlists_to_add
             except TypeError:
@@ -465,7 +465,6 @@ def build_top_controls(work_dir: "str", first_inlist=""):
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " controls namelist")
         controls_to_add = get_controls_namelist(current_inlist)[0]
-        inlists_to_add = check_if_more_controls(controls_to_add, work_dir=work_dir)
         controls = {**controls, **controls_to_add}
         ## note: if the same read_extra_star_controls is used in multiple
         ## inlists, only the last one works because settings
@@ -473,8 +472,9 @@ def build_top_controls(work_dir: "str", first_inlist=""):
         # print(controls)
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_add = check_if_more_controls(controls_to_add, work_dir=work_dir)
         ## add possible new inlists
-        if not inlists_to_add:
+        if inlists_to_add:
             try:
                 inlists_to_be_read = inlists_to_be_read + inlists_to_add
             except TypeError:
@@ -570,7 +570,7 @@ def build_top_binary_pgstar(work_dir: "str", first_inlist=""):
         ## remove inlist we are doing now from list
         inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
-        if inlists_to_add != None:
+        if inlists_to_add:
             try:
                 inlists_to_be_read = inlists_to_be_read + inlists_to_add
             except TypeError:
