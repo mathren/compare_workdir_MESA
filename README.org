@@ -105,8 +105,10 @@ Sometimes I need to merge the =profiles_columns.list=,
 =history_columns.list=, or =binary_history_columns.list= between two or
 more runs. This script does that, once again removing all the comments
 (so the merged file won't be very nice), and not caring about order of
-the options. The merged list is printed to a file =OUTLIST= specified by
-the user.
+the options. It will check that the lists you want to merge are
+compatible and refuse to merge, e.g., a =profiles_columns.list= with a
+=history_columns.list=.  The merged list is printed to a file =OUTLIST=
+specified by the user.
 
 As of now it does *not* check if the merged list is compatible with the
 MESA version.
