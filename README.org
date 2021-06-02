@@ -98,3 +98,27 @@ also disabled by default and can be done using =--pgstar=True= from
 command line.
 
 The output is similar to the example above for individual inlists.
+
+* How to use =merge_column_lists.py=
+
+Sometimes I need to merge the =profiles_columns.list=,
+=history_columns.list=, or =binary_history_columns.list= between two or
+more runs. This script does that, once again removing all the comments
+(so the merged file won't be very nice), and not caring about order of
+the options. The merged list is printed to a file =OUTLIST= specified by
+the user.
+
+As of now it does *not* check if the merged list is compatible with the
+MESA version.
+
+#+BEGIN_SRC
+python $RESEARCH/codes/mesa/compare_wordir_MESA/merge_column_lists.py --help
+Usage: merge_column_lists.py [OPTIONS] LIST1 LIST2 OUTLIST
+
+Options:
+  --mesa_dir TEXT  use customized location of $MESA_DIR. Will use environment
+                   variable if empty and return an error if empty.
+
+  --help           Show this message and exit.
+
+#+END_SRC
