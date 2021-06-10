@@ -329,7 +329,6 @@ def build_top_star_job(work_dir: "str", first_inlist="") -> "dict":
         first_inlist = get_first_inlist(work_dir)
     job = get_job_namelist(first_inlist)[0]
     inlists_to_be_read = check_if_more_star_job(job, work_dir=work_dir)
-    # print(inlists_to_be_read)
     while inlists_to_be_read:
         current_inlist = inlists_to_be_read[0]
         print("...reading " + current_inlist + " star_job namelist")
@@ -342,7 +341,7 @@ def build_top_star_job(work_dir: "str", first_inlist="") -> "dict":
         ## overwrites. That's also how MESA works
         # print(job)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add:
             try:
@@ -375,7 +374,7 @@ def build_top_binary_job(work_dir: "str", first_inlist="") -> "dict":
         ## overwrites. That's also how MESA works
         # print(job)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add:
             try:
@@ -408,7 +407,7 @@ def build_top_eos(work_dir: "str", first_inlist="") -> "dict":
         ## overwrites. That's also how MESA worksg
         # print(eos)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add:
             try:
@@ -440,7 +439,7 @@ def build_top_kap(work_dir: "str", first_inlist="") -> "dict":
         ## overwrites. That's also how MESA works
         # print(kap)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if not inlists_to_add:
             try:
@@ -471,7 +470,7 @@ def build_top_controls(work_dir: "str", first_inlist=""):
         ## overwrites. That's also how MESA works
         # print(controls)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         inlists_to_add = check_if_more_controls(controls_to_add, work_dir=work_dir)
         ## add possible new inlists
         if inlists_to_add:
@@ -504,7 +503,7 @@ def build_top_binary_controls(work_dir: "str", first_inlist=""):
         ## overwrites. That's also how MESA works
         # print(binary_controls)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add != None:
             try:
@@ -536,7 +535,7 @@ def build_top_pgstar(work_dir: "str", first_inlist=""):
         ## overwrites. That's also how MESA works
         # print(pgstar)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add != None:
             try:
@@ -568,7 +567,7 @@ def build_top_binary_pgstar(work_dir: "str", first_inlist=""):
         ## overwrites. That's also how MESA works
         # print(binary_pgstar)
         ## remove inlist we are doing now from list
-        inlists_to_be_read = inlists_to_be_read.remove(current_inlist)
+        inlists_to_be_read.remove(current_inlist)
         ## add possible new inlists
         if inlists_to_add:
             try:
