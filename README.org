@@ -14,6 +14,11 @@ MESA version for both inlists* for this last task.
 This can be used inside of scripts or notebooks, or from command line
 (which is the usual way I do it), thanks to [[https://github.com/pallets/click][click]].
 
+** Setup
+
+ Clone this repository wherever you want. You can add the location of
+ the =src= folder containing the python script to your =PATH= either by
+ hand, or using the script =src/__init__.py=.
 
 ** How to use =compare_inlists.py=
 

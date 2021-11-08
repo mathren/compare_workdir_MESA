@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # author: Mathieu Renzo
 
 # Author: Mathieu Renzo <mathren90@gmail.com>
