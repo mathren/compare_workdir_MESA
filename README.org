@@ -1,11 +1,11 @@
-#+TITLE: Compare MESA inlists without worrying about order and comments
+#+TITLE: Compare MESA inlists without worrying about nesting, order, and comments
 
 While experimenting with [[http://mesa.sourceforge.net/][MESA]] and developing setups, I often compare
 inlists (for single and/or binary stars) with each other. A simple
 diff is often not informative because of the comments, non-matching
 order of the entries, or missing entries in one file that are present
-in the other file but have no real effect because they are set to the
-defaults. For this reason, I've written the script =compare_inlists.py=
+in the other file, but have no effect because they are set to the
+defaults. For this reason, I've written the (executable) script =compare_inlists.py=
 which can print an option-by-option diff of two inlists, ignoring
 comments and empty lines, and checking the defaults from the
 documentation when entries are missing. It *assumes you use the same
@@ -17,13 +17,14 @@ This can be used inside of scripts or notebooks, or from command line
 ** How to install
 
 #+begin_src bash
-pip install git+html:
+pip install git+https://github.com/mathren/compare_workdir_MESA/
 #+end_src
-
-*** Development Environment
 
 ** How to use =compare_inlists.py=
 
+ This script is in =src/compare_workdir/= and does a one-to-one
+ comparison of two inlists (without considering nested inlist that
+ might overwrite settings in the inlists considered).
 
  #+BEGIN_SRC bash
  python compare_inlists.py --help
@@ -63,6 +64,9 @@ pip install git+html:
 
 
 ** How to use =compare_all_work_dir_inlists.py=
+
+ This script is in =src/compare_workdir/= and does a one-to-one
+ comparison of two inlists (following down the rabbit hole of nesting).
 
  MESA allows to nest namelists (i.e., star_job, controls, and/or
  pgstar, and their binary counterparts) using =read_extra_star_job_inlist*= and
