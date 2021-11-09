@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "compare_workdir"
-version = "0.1"
+version = "2.0"
 description = "Compare MESA inlists and list files without worrying about nesting, comments, and order"
 authors = ["Mathieu Renzo <mrenzo@flatironinstitute.org>"]
 homepage = "https://github.com/mathren/compare_workdir_MESA"
