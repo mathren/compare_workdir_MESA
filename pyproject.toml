@@ -3,7 +3,7 @@ name = "compare_workdir"
 version = "0.1"
 description = "Compare MESA inlists and list files without worrying about nesting, comments, and order"
 authors = ["Mathieu Renzo <mrenzo@flatironinstitute.org>"]
-homepage = "https://git.decapod.one/brethil/bretellobot.git"
+homepage = "https://github.com/mathren/compare_workdir_MESA"
 repository = "https://github.com/mathren/compare_workdir_MESA"
 
 [tool.poetry.scripts]
