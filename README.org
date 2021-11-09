@@ -17,9 +17,10 @@ This can be used inside of scripts or notebooks, or from command line
 ** How to install
 
 #+begin_src bash
-python3 -m pip install --index-url https://github.com/mathren/compare_workdir_MESA compare_inlist-mathren-0.0.1-py3-
+pip install git+html:
 #+end_src
 
+*** Development Environment
 
 ** How to use =compare_inlists.py=
 
@@ -131,3 +132,8 @@ python3 -m pip install --index-url https://github.com/mathren/compare_workdir_ME
    --help           Show this message and exit.
 
  #+END_SRC
+
+
+** Acknowledgements
+
+   Thanks to =brethil= for help transforming this into a python package.

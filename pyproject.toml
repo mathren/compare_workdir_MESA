@@ -1,6 +1,34 @@
+[tool.poetry]
+name = "compare_workdir"
+version = "0.1"
+description = "Compare MESA inlists and list files without worrying about nesting, comments, and order"
+authors = ["Mathieu Renzo <mrenzo@flatironinstitute.org>"]
+homepage = "https://git.decapod.one/brethil/bretellobot.git"
+repository = "https://github.com/mathren/compare_workdir_MESA"
+
+[tool.poetry.scripts]
+compare_inlists = 'compare_workdir:compare_inlists'
+compare_all_workdir_inlists = 'compare_workdir:compare_all_workdir_inlists'
+merge_colum_lists = 'compare_workdir:merge_column_lists'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+click = "^8.0.3"
+termcolor = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.10b0"
+pylint = "^2.11.1"
+python-lsp-server = "^1.2.4"
+
+[tool.black]
+line-length = 120
+
+#[tool.pylint.'MESSAGES CONTROL']
+#disable = ["invalid-name", "bad-continuation", "undefined-variable"]
+##disable = "undefined-variable,bad-continuation,missing-module-docstring"
+#good-names = "f"
+
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

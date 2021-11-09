@@ -53,7 +53,7 @@ def read_col_list(col_list):
     return col
 
 
-def merge_column_lists(list1: "str", list2: "str", outlist="", MESA_DIR=""):
+def merge_columns(list1: "str", list2: "str", outlist="", MESA_DIR=""):
     """if outlist is given, returns a column list merging list1 and list2"""
     # check they are compatible
     if (list_type(list1) != list_type(list2)) or (list_type(list1) == "unknown") or (list_type(list2) == "unknown"):
@@ -83,9 +83,9 @@ def merge_column_lists(list1: "str", list2: "str", outlist="", MESA_DIR=""):
     default="",
     help="use customized location of $MESA_DIR. Will use environment variable if empty and return an error if empty.",
 )
-def main(list1: str, list2: str, mesa_dir: str, outlist: str):
-    merge_column_lists(list1, list2, outlist=outlist, MESA_DIR=mesa_dir)
+def merge_column_lists(list1: str, list2: str, mesa_dir: str, outlist: str):
+    merge_columns(list1, list2, outlist=outlist, MESA_DIR=mesa_dir)
 
 
 if __name__ == "__main__":
-    main()
+    merge_column_lists()

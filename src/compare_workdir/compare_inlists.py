@@ -611,8 +611,8 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
     help="use customized location of $MESA_DIR. Will use environment variable if empty and return an error if empty.",
 )
 @click.option("--vb", default=False, help="Show also matching lines using green.")
-def main(inlist1: str, inlist2: str, pgstar: bool, mesa_dir: str, vb: bool):
+def compare_inlists(inlist1: str, inlist2: str, pgstar: bool, mesa_dir: str, vb: bool):
     diff_inlists(inlist1, inlist2, do_pgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
 
 if __name__ == "__main__":
-    main()
+    compare_inlists()
