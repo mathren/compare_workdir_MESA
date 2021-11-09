@@ -26,7 +26,10 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
  comparison of two inlists (without considering nested inlist that
  might overwrite settings in the inlists considered).
 
- #+BEGIN_SRC bash
+ #+BEGIN_SRC
+ # if installed with pip
+ compare_inlists.py --help
+ # if just cloned the repository
  python compare_inlists.py --help
  Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 
@@ -86,8 +89,11 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
 
  As =compare_inlists.py=, it can be used inside of scripts or notebooks, or from command line.
 
- #+BEGIN_SRC bash
- python compare_all_work_dir_inlists.py --help
+ #+BEGIN_SRC
+ # if installed with pip
+ compare_all_work_dir_inlists.py --help
+ # if just cloned the repository
+ python /path/to/repo/src/compare_workdir/compare_all_work_dir_inlists.py --help
  Usage: compare_all_work_dir_inlists.py [OPTIONS] WORK_DIR1 WORK_DIR2
 
  Options:
@@ -128,8 +134,11 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
  As of now it does *not* check if the merged list is compatible with the
  MESA version.
 
- #+BEGIN_SRC bash
- python $RESEARCH/codes/mesa/compare_wordir_MESA/merge_column_lists.py --help
+ #+BEGIN_SRC
+ # if installed with pip
+ merge_column_lists --help
+ # if just cloned the repository
+ python /path/to/repo/src/compare_workdir/merge_column_lists.py --help
  Usage: merge_column_lists.py [OPTIONS] LIST1 LIST2 OUTLIST
 
  Options:
