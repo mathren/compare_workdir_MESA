@@ -37,9 +37,9 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
 
  #+BEGIN_SRC
  # if installed with pip
- compare_inlists.py --help
+ compare_inlists --help
  # if just cloned the repository
- python compare_inlists.py --help
+ python /path/to/repo/compare_inlists.py --help
  Usage: compare_inlists.py [OPTIONS] INLIST1 INLIST2
 
  Options:
@@ -101,10 +101,10 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
 
  #+BEGIN_SRC
  # if installed with pip
- compare_all_work_dir_inlists.py --help
+ compare_all_workdir_inlists --help
  # if just cloned the repository
  python /path/to/repo/src/compare_workdir/compare_all_work_dir_inlists.py --help
- Usage: compare_all_work_dir_inlists.py [OPTIONS] WORK_DIR1 WORK_DIR2
+ Usage: compare_all_workdir_inlists.py [OPTIONS] WORK_DIR1 WORK_DIR2
 
  Options:
    --pgstar TEXT    Show also diff of pgstar namelists.
@@ -157,7 +157,6 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
                     variable if empty and return an error if empty.
 
    --help           Show this message and exit.
-
  #+END_SRC
 
 
