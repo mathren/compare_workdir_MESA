@@ -14,11 +14,12 @@ MESA version for both inlists* for this last task.
 This can be used inside of scripts or notebooks, or from command line
 (which is the usual way I do it), thanks to [[https://github.com/pallets/click][click]].
 
-** Setup
+** How to install
 
- Clone this repository wherever you want. You can add the location of
- the =src= folder containing the python script to your =PATH= either by
- hand, or using the script =src/__init__.py=.
+#+begin_src bash
+python3 -m pip install --index-url https://github.com/mathren/compare_workdir_MESA compare_inlist-mathren-0.0.1-py3-
+#+end_src
+
 
 ** How to use =compare_inlists.py=
 

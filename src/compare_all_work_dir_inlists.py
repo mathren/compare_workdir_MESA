@@ -785,9 +785,9 @@ def check_folders_consistency(
     help="use customized location of $MESA_DIR. Will use environment variable if empty and return an error if empty.",
 )
 @click.option("--vb", default=False, help="Show also matching lines using green.")
-def cli_wrapper_directories(work_dir1, work_dir2, pgstar, mesa_dir, vb):
+def main(work_dir1, work_dir2, pgstar, mesa_dir, vb):
     check_folders_consistency(work_dir1, work_dir2, do_pgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
 
 
 if __name__ == "__main__":
-    cli_wrapper_directories()
+    main()

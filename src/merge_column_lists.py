@@ -37,8 +37,9 @@ def list_type(col_list):
     else:
         return "unknown"
 
+
 def read_col_list(col_list):
-    """ reads a file and returns a list of columns ignoring empty lines and comments """
+    """reads a file and returns a list of columns ignoring empty lines and comments"""
     col = []
     with open(col_list, "r") as F:
         for i, line in enumerate(F):
@@ -51,27 +52,27 @@ def read_col_list(col_list):
                 col.append(l.split('!')[0].rstrip())
     return col
 
+
 def merge_column_lists(list1: "str", list2: "str", outlist="", MESA_DIR=""):
-    """ if outlist is given, returns a column list merging list1 and list2 """
+    """if outlist is given, returns a column list merging list1 and list2"""
     # check they are compatible
-    if (list_type(list1) != list_type(list2)) or \
-       (list_type(list1) == "unknown") or \
-       (list_type(list2) == "unknown"):
-        print(colored("list types incompatible!","red"))
-        print(colored("1: "+list_type(list1),"red"))
-        print(colored("2: "+list_type(list2),"red"))
+    if (list_type(list1) != list_type(list2)) or (list_type(list1) == "unknown") or (list_type(list2) == "unknown"):
+        print(colored("list types incompatible!", "red"))
+        print(colored("1: " + list_type(list1), "red"))
+        print(colored("2: " + list_type(list2), "red"))
         return
     col1 = read_col_list(list1)
     col2 = read_col_list(list2)
-    col_new = sorted(list(set(col1+col2)))
+    col_new = sorted(list(set(col1 + col2)))
     # print(col_new)
     # N.B: if columns have disappeared in between MESA versions this won't deal with it for your
     if outlist != "":
         with open(outlist, "a") as F:
             for c in col_new:
-                F.write(c+"\n")
+                F.write(c + "\n")
     else:
         print(col_new)
+
 
 @click.command(context_settings={"ignore_unknown_options": True})
 @click.argument("list1", nargs=1, type=click.Path(exists=True))
@@ -82,8 +83,9 @@ def merge_column_lists(list1: "str", list2: "str", outlist="", MESA_DIR=""):
     default="",
     help="use customized location of $MESA_DIR. Will use environment variable if empty and return an error if empty.",
 )
-def cli_wrapper(list1: str, list2: str, mesa_dir: str, outlist: str):
+def main(list1: str, list2: str, mesa_dir: str, outlist: str):
     merge_column_lists(list1, list2, outlist=outlist, MESA_DIR=mesa_dir)
 
+
 if __name__ == "__main__":
-    cli_wrapper()
+    main()
