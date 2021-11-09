@@ -20,8 +20,7 @@
 # along with this program.  If not, see http://www.gnu.org/licenses/.
 
 
-# This has been tested with MESA version 12778
-# Testing on MESA version 14883 in progress
+# This has been tested with MESA version 15140
 
 import os
 import sys
