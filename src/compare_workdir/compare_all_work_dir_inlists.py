@@ -32,7 +32,7 @@ from termcolor import colored
 
 # pip install -U click
 import click
-from compare_inlists import (
+from .compare_inlists import (
     get_job_namelist,
     get_eos_namelist,
     get_kap_namelist,
