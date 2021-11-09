@@ -16,9 +16,12 @@ This can be used inside of scripts or notebooks, or from command line
 
 ** How to install
 
+   You can install version 2.0 from pypi, or the latest version using:
+
 #+begin_src bash
 pip install git+https://github.com/mathren/compare_workdir_MESA/
 #+end_src
+
 
 ** How to use =compare_inlists.py=
 
@@ -68,6 +71,7 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
  Note that if you installed this package with =pip= you can call this
  script with =compare_inlists= from anywhere (without typing =python=, the
  path to the script, and the extension).
+
 
 ** How to use =compare_all_work_dir_inlists.py=
 
@@ -119,6 +123,7 @@ pip install git+https://github.com/mathren/compare_workdir_MESA/
  command line.
 
  The output is similar to the example above for individual inlists.
+
 
 ** How to use =merge_column_lists.py=
 

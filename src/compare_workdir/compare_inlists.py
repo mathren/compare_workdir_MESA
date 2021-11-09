@@ -48,7 +48,7 @@ def get_name_val(line: "str"):
 
 
 def conver_bool(val: "str") -> "str":
-    """ fix occasional typo in MESA docs, might not be needed """
+    """fix occasional typo in MESA docs, might not be needed"""
     if (val == ".true.") or (val == ".true"):
         return ".true."
     elif (val == ".false.") or (val == ".false"):
@@ -71,7 +71,7 @@ def convert_float(val: "str") -> "float":
 
 
 def clean_val(val):
-    """ clean values in inlists """
+    """clean values in inlists"""
     val = convert_float(val)
     val = conver_bool(val)
     return val
@@ -133,7 +133,10 @@ def get_defaults(namelist: str, MESA_DIR="") -> "dict":
         defaultFname = Path(MESA_DIR + "/star/defaults/pgstar.defaults")
     else:
         print(
-            colored("Namelist: " + namelist + " not recognized, don't know what to do!", "yellow",)
+            colored(
+                "Namelist: " + namelist + " not recognized, don't know what to do!",
+                "yellow",
+            )
         )
         return defaults
     # now if we did not exit already, load a dict
@@ -312,9 +315,7 @@ def get_pgstar_namelist(inlist: "str") -> "dict":
 # ---------- compare namelists entries between each other and defaults -------------------------
 
 
-def compare_and_report(
-    k: "str", dic1: "dict", dic2: "dict", string1: "str", string2: "str", vb=False
-):
+def compare_and_report(k: "str", dic1: "dict", dic2: "dict", string1: "str", string2: "str", vb=False):
     """
     Given two dictionaries, compares their entry k.
     Assumes the inlist name is less than 30 characters.
@@ -407,9 +408,7 @@ def diff_kap(kap1: "dict", kap2: "dict", string1: "str", string2: "str", MESA_DI
         compare_defaults_and_report(k, kap2, defaults, string2, string1, vb)
 
 
-def diff_controls(
-    controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
-):
+def diff_controls(controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in controls1.keys() & controls2.keys():
         compare_and_report(k, controls1, controls2, string1, string2, vb)
@@ -425,9 +424,7 @@ def diff_controls(
         compare_defaults_and_report(k, controls2, defaults, string2, string1, vb)
 
 
-def diff_pgstar(
-    pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
-):
+def diff_pgstar(pgstar1: "dict", pgstar2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in pgstar1.keys() & pgstar2.keys():
         compare_and_report(k, pgstar1, pgstar2, string1, string2, vb)
@@ -443,9 +440,7 @@ def diff_pgstar(
         compare_defaults_and_report(k, pgstar2, defaults, string2, string1, vb)
 
 
-def diff_binary_job(
-    job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
-):
+def diff_binary_job(job1: "dict", job2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in job1.keys() & job2.keys():
         compare_and_report(k, job1, job2, string1, string2, vb)
@@ -461,9 +456,7 @@ def diff_binary_job(
         compare_defaults_and_report(k, job2, defaults, string2, string1, vb)
 
 
-def diff_binary_controls(
-    controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False
-):
+def diff_binary_controls(controls1: "dict", controls2: "dict", string1: "str", string2: "str", MESA_DIR="", vb=False):
     # check the keys appearing in both
     for k in controls1.keys() & controls2.keys():
         compare_and_report(k, controls1, controls2, string1, string2, vb)
@@ -536,13 +529,23 @@ def diff_inlists(inlist1: "str", inlist2: "str", do_pgstar=False, MESA_DIR="", v
             print("")
             print("&controls")
             diff_controls(
-                controls1, controls2, name1, name2, MESA_DIR, vb,
+                controls1,
+                controls2,
+                name1,
+                name2,
+                MESA_DIR,
+                vb,
             )
         else:
             print("")
             print("&binary_controls")
             diff_binary_controls(
-                controls1, controls2, name1, name2, MESA_DIR, vb,
+                controls1,
+                controls2,
+                name1,
+                name2,
+                MESA_DIR,
+                vb,
             )
     print("/ !end controls namelist")
     if do_pgstar:
@@ -613,6 +616,7 @@ def test_diff_inlists(outfile="", MESA_DIR=""):
 @click.option("--vb", default=False, help="Show also matching lines using green.")
 def compare_inlists(inlist1: str, inlist2: str, pgstar: bool, mesa_dir: str, vb: bool):
     diff_inlists(inlist1, inlist2, do_pgstar=pgstar, MESA_DIR=mesa_dir, vb=vb)
+
 
 if __name__ == "__main__":
     compare_inlists()

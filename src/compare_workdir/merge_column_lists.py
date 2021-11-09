@@ -86,5 +86,6 @@ def merge_columns(list1: "str", list2: "str", outlist="", MESA_DIR=""):
 def merge_column_lists(list1: str, list2: str, mesa_dir: str, outlist: str):
     merge_columns(list1, list2, outlist=outlist, MESA_DIR=mesa_dir)
 
+
 if __name__ == "__main__":
     merge_column_lists()

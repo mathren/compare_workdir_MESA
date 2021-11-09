@@ -646,9 +646,7 @@ def compare_binary_work_dirs(work1: "str", work2: "str", do_pgstar=False, MESA_D
     job1 = build_top_binary_job(work1)
     job2 = build_top_binary_job(work2)
     ## To compare namelist of each star in both folders later
-    inlist1_b1, inlist2_b1, inlist1_b2, inlist2_b2 = get_top_binary_inlist(
-        job1, job2, MESA_DIR=MESA_DIR
-    )
+    inlist1_b1, inlist2_b1, inlist1_b2, inlist2_b2 = get_top_binary_inlist(job1, job2, MESA_DIR=MESA_DIR)
     print("")
     print("&binary_job")
     diff_binary_job(job1, job2, name1, name2, MESA_DIR, vb)
@@ -754,22 +752,21 @@ def compare_binary_work_dirs(work1: "str", work2: "str", do_pgstar=False, MESA_D
     print("**************************")
 
 
-def check_folders_consistency(
-    work_dir1: str, work_dir2: str, do_pgstar=False, MESA_DIR="", vb=False
-):
-    """ checks if both folders are for single or binary stars and calls the right functions"""
+def check_folders_consistency(work_dir1: str, work_dir2: str, do_pgstar=False, MESA_DIR="", vb=False):
+    """checks if both folders are for single or binary stars and calls the right functions"""
     is_binary1 = is_folder_binary(work_dir1)
     is_binary2 = is_folder_binary(work_dir2)
     if is_binary1 and is_binary2:
-        compare_binary_work_dirs(
-            work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb
-        )
+        compare_binary_work_dirs(work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb)
     elif (not is_binary1) and (not is_binary2):
-        compare_single_work_dirs(
-            work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb
-        )
+        compare_single_work_dirs(work_dir1, work_dir2, do_pgstar=do_pgstar, MESA_DIR=MESA_DIR, vb=vb)
     else:
-        print(colored("You're asking to compare a single star directory with a binary.", "yellow",))
+        print(
+            colored(
+                "You're asking to compare a single star directory with a binary.",
+                "yellow",
+            )
+        )
         print(colored("I politely decline to do so.", "yellow"))
 
 
