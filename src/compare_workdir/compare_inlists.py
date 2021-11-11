@@ -47,7 +47,7 @@ def get_name_val(line: "str"):
     return optionName, value
 
 
-def conver_bool(val: "str") -> "str":
+def convert_bool(val: "str") -> "str":
     """fix occasional typo in MESA docs, might not be needed"""
     if (val == ".true.") or (val == ".true"):
         return ".true."
@@ -60,7 +60,7 @@ def conver_bool(val: "str") -> "str":
 def convert_float(val: "str") -> "float":
     """
     convert inlists entries into python floats
-    to avoid mismatch do to formatting issues
+    to avoid mismatch due to formatting issues
     """
     try:
         tmp = val.replace("d", "e")
@@ -73,7 +73,7 @@ def convert_float(val: "str") -> "float":
 def clean_val(val):
     """clean values in inlists"""
     val = convert_float(val)
-    val = conver_bool(val)
+    val = convert_bool(val)
     return val
 
 
