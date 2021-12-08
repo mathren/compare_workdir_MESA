@@ -16,13 +16,7 @@ This can be used inside of scripts or notebooks, or from command line
 
 ** How to install
 
-   You can install version 2.0 from pypi:
-
-#+BEGIN_SRC bash
-pip install compare_workdir
-#+END_SRC
-
-   or the latest version from this repository:
+   Install the latest version from this repository:
 
 #+begin_src bash
 pip install git+https://github.com/mathren/compare_workdir_MESA/
