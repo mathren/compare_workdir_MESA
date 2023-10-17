@@ -193,10 +193,17 @@ def get_job_namelist(inlist: "str"):
     return job, is_binary
 
 
-def get_controls_namelist(inlist: "str") -> "dict":
+def get_controls_namelist(inlist: str):
     """
     returns a dictionary of the controls or binary_controls namelist entries and values
     and a flag for binaries
+    Parameters:
+    ----------
+    inlist: `str` path to inlist
+    Returns:
+    controls: `dict`, dictionary of the controls namelist options and values
+    is_binary: `bool`, was the namelist binary_constrols inlist of not
+    -------
     """
     controls = {}
     is_binary = False

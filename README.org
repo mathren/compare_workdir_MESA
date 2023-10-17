@@ -19,7 +19,7 @@ This can be used inside of scripts or notebooks, or from command line
    Install the latest version from this repository:
 
 #+begin_src bash
-pip install git+https://github.com/mathren/compare_workdir_MESA/
+$ pip install git+https://github.com/mathren/compare_workdir_MESA/
 #+end_src
 
 

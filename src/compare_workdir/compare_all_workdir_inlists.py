@@ -131,6 +131,7 @@ def check_if_more_star_job(job: "dict", work_dir="./") -> "list":
     Check if there are more star_job namelists to be read and returns a
     list of the paths to their inlists
     """
+    print(job)
     inlists_to_be_read = []
     if job.get("read_extra_star_job_inlist1") == ".true.":
         new_inlist = job.get("extra_star_job_inlist1_name").strip("'").strip('"')
@@ -146,6 +147,22 @@ def check_if_more_star_job(job: "dict", work_dir="./") -> "list":
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if job.get("read_extra_star_job_inlist5") == ".true.":
         new_inlist = job.get("extra_star_job_inlist5_name").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if job.get("read_extra_star_job_inlist(1)") == ".true.":
+        new_inlist = job.get("extra_star_job_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_star_job_inlist(2)") == ".true.":
+        new_inlist = job.get("extra_star_job_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_star_job_inlist(3)") == ".true.":
+        new_inlist = job.get("extra_star_job_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_star_job_inlist(4)") == ".true.":
+        new_inlist = job.get("extra_star_job_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_star_job_inlist(5)") == ".true.":
+        new_inlist = job.get("extra_star_job_inlist_name(5)").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
@@ -171,6 +188,22 @@ def check_if_more_eos(eos: "dict", work_dir="./") -> "list":
     if eos.get("read_extra_eos_inlist5") == ".true.":
         new_inlist = eos.get("extra_eos_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if eos.get("read_extra_eos_inlist(1)") == ".true.":
+        new_inlist = eos.get("extra_eos_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if eos.get("read_extra_eos_inlist(2)") == ".true.":
+        new_inlist = eos.get("extra_eos_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if eos.get("read_extra_eos_inlist(3)") == ".true.":
+        new_inlist = eos.get("extra_eos_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if eos.get("read_extra_eos_inlist(4)") == ".true.":
+        new_inlist = eos.get("extra_eos_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if eos.get("read_extra_eos_inlist(5)") == ".true.":
+        new_inlist = eos.get("extra_eos_inlist_name(5)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
 
@@ -194,6 +227,22 @@ def check_if_more_kap(kap: "dict", work_dir="./") -> "list":
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if kap.get("read_extra_kap_inlist5") == ".true.":
         new_inlist = kap.get("extra_kap_inlist5_name").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if kap.get("read_extra_kap_inlist(1)") == ".true.":
+        new_inlist = kap.get("extra_kap_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if kap.get("read_extra_kap_inlist(2)") == ".true.":
+        new_inlist = kap.get("extra_kap_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if kap.get("read_extra_kap_inlist(3)") == ".true.":
+        new_inlist = kap.get("extra_kap_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if kap.get("read_extra_kap_inlist(4)") == ".true.":
+        new_inlist = kap.get("extra_kap_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if kap.get("read_extra_kap_inlist(5)") == ".true.":
+        new_inlist = kap.get("extra_kap_inlist_name(5)").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
@@ -219,6 +268,22 @@ def check_if_more_binary_job(job: "dict", work_dir="./") -> "list":
     if job.get("read_extra_binary_job_inlist5") == ".true.":
         new_inlist = job.get("extra_binary_job_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if job.get("read_extra_binary_job_inlist(1)") == ".true.":
+        new_inlist = job.get("extra_binary_job_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_binary_job_inlist(2)") == ".true.":
+        new_inlist = job.get("extra_binary_job_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_binary_job_inlist(3)") == ".true.":
+        new_inlist = job.get("extra_binary_job_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_binary_job_inlist(4)") == ".true.":
+        new_inlist = job.get("extra_binary_job_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if job.get("read_extra_binary_job_inlist(5)") == ".true.":
+        new_inlist = job.get("extra_binary_job_inlist_name(5)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
 
@@ -242,6 +307,22 @@ def check_if_more_controls(controls: "dict", work_dir="./") -> "inlist":
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if controls.get("read_extra_controls_inlist5") == ".true.":
         new_inlist = controls.get("extra_controls_inlist5_name").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if controls.get("read_extra_controls_inlist(1)") == ".true.":
+        new_inlist = controls.get("extra_controls_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if controls.get("read_extra_controls_inlist(2)") == ".true.":
+        new_inlist = controls.get("extra_controls_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if controls.get("read_extra_controls_inlist(3)") == ".true.":
+        new_inlist = controls.get("extra_controls_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if controls.get("read_extra_controls_inlist(4)") == ".true.":
+        new_inlist = controls.get("extra_controls_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if controls.get("read_extra_controls_inlist(5)") == ".true.":
+        new_inlist = controls.get("extra_controls_inlist_name(5)").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
@@ -267,6 +348,22 @@ def check_if_more_binary_controls(binary_controls: "dict", work_dir="./") -> "li
     if binary_controls.get("read_extra_binary_controls_inlist5") == ".true.":
         new_inlist = binary_controls.get("extra_binary_controls_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if binary_controls.get("read_extra_binary_controls_inlist(1)") == ".true.":
+        new_inlist = binary_controls.get("extra_binary_controls_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_controls.get("read_extra_binary_controls_inlist(2)") == ".true.":
+        new_inlist = binary_controls.get("extra_binary_controls_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_controls.get("read_extra_binary_controls_inlist(3)") == ".true.":
+        new_inlist = binary_controls.get("extra_binary_controls_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_controls.get("read_extra_binary_controls_inlist(4)") == ".true.":
+        new_inlist = binary_controls.get("extra_binary_controls_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_controls.get("read_extra_binary_controls_inlist(5)") == ".true.":
+        new_inlist = binary_controls.get("extra_binary_controls_inlist_name(5)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
 
@@ -291,6 +388,22 @@ def check_if_more_pgstar(pgstar: "dict", work_dir="./") -> "list":
     if pgstar.get("read_extra_pgstar_inlist5") == ".true.":
         new_inlist = pgstar.get("extra_pgstar_inlist5_name").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if pgstar.get("read_extra_pgstar_inlist(1)") == ".true.":
+        new_inlist = pgstar.get("extra_pgstar_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if pgstar.get("read_extra_pgstar_inlist(2)") == ".true.":
+        new_inlist = pgstar.get("extra_pgstar_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if pgstar.get("read_extra_pgstar_inlist(3)") == ".true.":
+        new_inlist = pgstar.get("extra_pgstar_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if pgstar.get("read_extra_pgstar_inlist(4)") == ".true.":
+        new_inlist = pgstar.get("extra_pgstar_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if pgstar.get("read_extra_pgstar_inlist(5)") == ".true.":
+        new_inlist = pgstar.get("extra_pgstar_inlist_name(5)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
 
@@ -314,6 +427,22 @@ def check_if_more_binary_pgstar(binary_pgstar: "dict", work_dir="./") -> "list":
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     if binary_pgstar.get("read_extra_binary_pgstar_inlist5") == ".true.":
         new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist5_name").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    # MESA versions > 23.05.1 turned these into arrays
+    if binary_pgstar.get("read_extra_binary_pgstar_inlist(1)") == ".true.":
+        new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist_name(1)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_pgstar.get("read_extra_binary_pgstar_inlist(2)") == ".true.":
+        new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist_name(2)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_pgstar.get("read_extra_binary_pgstar_inlist(3)") == ".true.":
+        new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist_name(3)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_pgstar.get("read_extra_binary_pgstar_inlist(4)") == ".true.":
+        new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist_name(4)").strip("'").strip('"')
+        inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
+    if binary_pgstar.get("read_extra_binary_pgstar_inlist(5)") == ".true.":
+        new_inlist = binary_pgstar.get("extra_binary_pgstar_inlist_name(5)").strip("'").strip('"')
         inlists_to_be_read = append_inlist_path(inlists_to_be_read, new_inlist, work_dir)
     return inlists_to_be_read
 
